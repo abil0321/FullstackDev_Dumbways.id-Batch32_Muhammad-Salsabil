@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Layouting</title>
+  <style>
+    body{
+      margin: 0;
+    }
+    div {
+      width: 200px;
+      height: 200px;
+      background-color: salmon;
+
+      /* belajar margin (px, %, auto, boleh negatif, dan selalu dimulai dari atas) ----*/
+      /*== atas, kiri-kanan, bawah ==*/
+      /*== margin: 100px auto 50px; ==*/
+      /*== atas, kanan, bawah, kiri ==*/
+      margin: 40px 30px 20px 10px;
+      /*== boleh mines ==*/
+      /* margin-top: -100px;  
+      margin-left: -100px; */
+
+      /* belajar padding (px, %) -----------------------------*/
+      padding: 50px 100px 30px 20px;
+
+      /* belajar border (width style color) -----------------------------*/
+      border: 5px solid royalblue;
+
+      /* box sizing: untuk membuat width dan height nya tidak berubah meski padding dan bordernya lebih */
+      box-sizing: border-box; /* Safari dan Chrome */
+      -moz-box-sizing: border-box; /* Firefox */
+      -webkit-box-sizing: border-box; /* Opera, IE 8+, dll */
+    }
+    /* belajar display (inline, block, inline-block) -----------------------------*/
+    /*== display: block; (elemen p memiliki bawaan display block) ==*/
+      p{
+        /* bisa diataur width dan height */
+        background-color: salmon;
+        width: 300px;
+        height: 50px;
+      }
+      /*== display: inline; (elemen a memiliki bawaan display inline) ==*/
+      /* tidak bisa diatur width dan height */
+      a{
+        background-color: aqua;
+        width: 100px;
+        height: 50px;
+
+        /* display: inline-block; */
+        /* dengan adanya display inline-block, maka width dan height bisa diatur */
+        /* display: inline-block; */
+      }
+
+      /* belajar floatt (left, right, none) -----------------------------*/
+      /* --- */
+
+      /* belajar position (static, relative, absolute, fixed, sticky) -------------*/
+      
+
+
+  </style>
+</head>
+<body>
+  <div>
+    box model
+  </div>
+
+  <p>lorem ipsum</p>
+  <p>test</p>
+
+  <a href="#">link 1</a>
+  <a href="#">link 2</a>
+</body>
+</html>

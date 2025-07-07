@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  /* background-color: salmon; */
+}
+
+.image-user {
+  width: 50%;
+}
+
+.profile {
+  text-align: center;
+}
+
+.socials {
+  margin: 10px auto 30px;
+}
+
+.socials a {
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  font-size: 0.8em;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  display: inline-block;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border: 1px solid black;
+  margin-right: 5px;
+}
+
+.socials a:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.links {
+  list-style: none;
+}
+
+.links a {
+  text-decoration: none;
+}
+
+.links li {
+  border: 1px solid black;
+  margin: 5px;
+  color: black;
+  font-size: 0.8em;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+.links img {
+  width: 30px;
+}
+
+.links li span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.links li:hover {
+  background-color: black;
+  color: white;
+}
+
+.contact-form {
+  margin: 50px auto;
+  padding: 10px;
+}
+
+.contact-form h2 {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.contact-form label {
+  font-weight: 500;
+  font-size: 0.8em;
+}
+.contact-form input {
+  display: block;
+  width: 100%;
+  font-size: 0.7em;
+  color: #666;
+  padding: 5px;
+  margin: 10px auto 25px;
+  border: 0px;
+  border-bottom: 2px solid black;
+}
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  margin: 10px auto 25px;
+  font-size: 0.8em;
+  color: #666;
+  padding: 5px;
+  border: 0px;
+  border-bottom: 2px solid black;
+}
+.contact-form button {
+  width: 100%;
+  font-size: 0.8em;
+  padding: 8px;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.contact-form button:hover {
+  background-color: white;
+  color: black;
+}
+
+footer{
+  text-align: center;
+  margin-bottom: 50px;
+}
