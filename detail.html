@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profile Card with Bootstrap 5</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css"
+    />
+    <style>
+      body {
+        background: #e9ecef;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        font-weight: 700;
+      }
+
+      .section-title {
+        font-weight: 700;
+        font-size: 2rem;
+        margin: 3rem 0 2rem 0;
+        text-align: center;
+        color: #000;
+      }
+      .tech-icon {
+        height: 24px;
+        width: 24px;
+        margin-right: 8px;
+      }
+      .tech-item {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #333;
+      }
+      /* Align duration and tech lists */
+      .info-label {
+        font-weight: 700;
+        margin-top: 0.75rem;
+        margin-bottom: 0.5rem;
+      }
+      /* Image container - aspect ratio approx 4:3 as in original */
+      .image-container {
+        box-shadow: 0 0 12px rgb(0 0 0 / 0.1);
+        border-radius: 0.375rem;
+        overflow: hidden;
+      }
+      /* Section content area */
+      .content-text {
+        color: #333;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-top: 2rem;
+        text-align: justify;
+      }
+      .btn-custom-primary {
+        background-color: #121a2c;
+        color: #fff;
+        border-radius: 50px;
+        padding-left: 1.9rem;
+        padding-right: 1.9rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        text-transform: lowercase;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+      }
+      .btn-custom-primary:hover,
+      .btn-custom-primary:focus {
+        background-color: #0d1321;
+        color: #fff;
+      }
+      /* Responsive adjustments for the info section */
+      @media (min-width: 768px) {
+        .info-col {
+          border-left: 1px solid #ddd;
+          padding-left: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img
+            src="assets/images/logo_dumbwaysid.png"
+            alt="Logo"
+            width="64"
+            height="44"
+            class="d-inline-block align-text-top me-3"
+          />
+        </a>
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav align-items-center gap-lg-3">
+            <li class="nav-item">
+              <a class="nav-link active fw-bold" aria-current="page" href="#"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">My Project</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+            <li class="nav-item">
+              <a class="btn btn-custom-primary" href="#">Contact Me</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="section-title">Dumbways Web App</h1>
+
+          <!-- Row with image and project info -->
+          <div class="row align-items-center justify-content-center">
+            <div class="col-12 col-md-6 image-container mb-sm-3">
+              <img
+                src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/27437927-1a75-4d20-82b4-f28af02f4860.png"
+                alt="Close-up view of a smartphone being held showing a stock investment app interface in dark theme with graphs and buy/sell buttons"
+                class="img-fluid"
+                onerror="this.onerror=null;this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/21cbfcfe-4ffb-4ada-8961-521733a9cdab.png';"
+              />
+            </div>
+            <div class="col-12 col-md-6 info-col">
+              <div class="duration-icons d-flex flex-column mb-4">
+                <span class="info-label fs-4 mb-3">Duration</span>
+                <div class="d-flex gap-2 align-items-center mb-2 fs-2">
+                  <i class="fa-regular fa-calendar-days"></i>
+                  <span class="fs-6">12 Jan 2021 - 11 Feb 2021</span>
+                </div>
+
+                <div class="d-flex gap-2 align-items-center mt-2">
+                  <i class="fa-regular fa-clock fs-2"></i>
+                  <span class="fs-6">1 month</span>
+                </div>
+              </div>
+
+              <div class="tech-icons d-flex flex-column">
+                <span class="info-label fs-4 mb-3">Technologies</span>
+                <div class="row">
+                  <div class="col-md-5 col-sm-5 d-grid gap-2">
+                    <div class="d-flex align-items-center gap-3 mb-2 fs-2">
+                      <!-- React icon (stylized atom) -->
+                      <i class="fa-brands fa-react"></i>
+                      <span class="tech-item">React Js</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 mb-2 fs-2">
+                      <i class="fa-brands fa-js"></i>
+                      <span class="tech-item">JavaScript</span>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-sm-5 d-grid gap-2">
+                    <div class="d-flex align-items-center gap-3 mb-2 fs-2">
+                      <i class="fa-brands fa-node-js"></i>
+                      <span class="tech-item">Node Js</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 fs-2">
+                      <!-- Socket IO icon approximated as a socket with waves -->
+                      <i class="fa-brands fa-pied-piper"></i>
+                      <span class="tech-item">Socket IO</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detailed paragraph content below the image area -->
+          <div class="row">
+            <div class="col-12 col-md-10 content-text">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Faucibus morbi diam, sed elementum semper luctus. Venenatis
+                laoreet id morbi amet, sit volutpat pulvinar scelerisque tempor.
+                Integer pulvinar ultrices fermentum proin quam fermentum
+                interdum eu. Sapien nulla gravida imperdiet eget tincidunt.
+                Dictum venenatis urna, quam feugiat malesuada arcu quam. Congue
+                id auctor blandit felis pulvinar tincidunt erat nec volutpat.
+                Tellus quisque tortor donec neque, neque dolor justo. Nec
+                facilisis morbi ac condimentum odio. Dolor, dignissim viverra
+                iaculis consectetur integer ipsum, egestas.
+              </p>
+              <p>
+                Sed nunc, tristique suspendisse ut quisque vitae adipiscing. Ac
+                pellentesque sed nunc, quisque risus. Id in magnis mi justo,
+                placerat. In curabitur nunc egestas in pellentesque non. Eu nunc
+                eros, quisque feugiat. Commodo, ipsum scelerisque tristique nisl
+                orci massa. Viverra nulla sit tortor, nisl, arcu nec.
+              </p>
+              <p>
+                Auge volutpat massa adipiscing rhoncus sit non vel. Cursus purus
+                est vestibulum viverra. Rhoncus a amet, volutpat auctor
+                tincidunt vitae elit aliquam. Morbi faucibus sed viverra nibh,
+                bibendum mi. Ornare nulla sed viverra semper et interdum nisl
+                tellus. In euismod nulla sed nam lorem urna. Tortor, integer
+                viverra sit nibh. Interdum vel et sagittis, phasellus ultricies.
+                Nullac luctus in mattis in. Duis in feugiat vestibulum, sit
+                venenatis suscipit ultricies elit. Ut in amet leo imperdiet
+                nunc. Ornare scelerisque commodo ut praesent tellus proin dolor
+                non turpis.
+              </p>
+              <p>
+                Nunc, tempor ornare enim, et faucibus tortor, pharetra,
+                phasellus. Tortor viverra ullamcorper commodo nunc. Odio id
+                dignissim est ipsum sed nibh odio faucibus odio. Urna
+                scelerisque eu, eu, ac amet turpis leo. Mi, molestie aliquam
+                odio eleifend nisi, sed mauris accumsan etiam. At ut fringilla
+                tempor, elit, velit.
+              </p>
+              <p>
+                Eget in et sapien, ac. At pulvinar nisl nibh non. Dictum lacus
+                congue dui est, etiam tortor massa vulputate morbi. Fermentum et
+                at convallis nunc pharetra. Faucibus ac pulvinar magna morbi
+                turpis pulvinar tristique suspendisse suscipit. Justo, quam
+                ultrices feugiat mattis dignissim id sollicitudin cras libero.
+                Velit ultrices nulla ultricies eu, elementum. Sit tellus varius
+                scelerisque augue pretium. Faucibus mauris consectetur fermentum
+                massa donec faucibus quam eu. Interdum tristique vitae sed
+                blandit placerat nullam elit. Vel mollis eget ut ipsum,
+                curabitur. Fermentum nisl, nec amet sit netus venenatis feugiat.
+                Sed tortor magna eget gravida. Tellus nec dolor magna nulla. Ut
+                congue porttitor phasellus ac senectus. Sem sed sagittis enim
+                nulla dolor. Egestas cras euismod mi sed. Tincidunt tortor sed
+                dui senectus augue a eget mollis odio. Et ultrices mauris et
+                dolor et amet, habitasse. Nulla massa mauris vestibulum aliquet
+                ornare porttitor. Lacus ultricies eget dui feugiat sit lorem
+                dolor, mauris.
+              </p>
+              <p>
+                Nunc ipsum lectus at mauris egestas. Vitae pulvinar tellus neque
+                elit blandit sodales. Fringilla non, neque risus id iaculis
+                volutpat aliquet luctus adipiscing. Eu tincidunt ante morbi
+                cursus risus adipiscing nam. Nec, urna, ut amet, neque enim nam
+                nibh. Lectus sed suscipit sed non arcu, sed in suscipit. Lectus
+                in ut volutpat donec id sed. Tellus ut aliquet porttitor.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 p-lg-5"></div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

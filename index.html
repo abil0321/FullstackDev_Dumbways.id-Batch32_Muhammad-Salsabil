@@ -25,6 +25,83 @@
       .nav-link.active {
         font-weight: 700;
       }
+
+      .form-check-input {
+        width: 1.8em; /* Atur lebar checkbox */
+        height: 1.8em; /* Atur tinggi checkbox */
+      }
+
+      /* Submit button style */
+      #submitBtn {
+        background-color: #0c1226;
+        border: none;
+        color: white;
+        font-weight: 600;
+        padding: 0.5rem 2.5rem;
+        border-radius: 2rem;
+        text-transform: lowercase;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      #submitBtn:hover {
+        background-color: #070916;
+      }
+      /* Card button styles */
+      .btn-edit,
+      .btn-delete {
+        font-weight: 600;
+        padding: 0.25rem 1rem;
+        text-transform: lowercase;
+        font-size: 0.8rem;
+        border-radius: 2rem;
+      }
+      .btn-edit {
+        background-color: #0c1226;
+        color: white;
+        border: none;
+      }
+      .btn-edit:hover {
+        background-color: #070916;
+        color: white;
+      }
+      .btn-delete {
+        background-color: #d33b32;
+        color: white;
+        border: none;
+        margin-left: 0.4rem;
+      }
+      .btn-delete:hover {
+        background-color: #a02a27;
+        color: white;
+      }
+      /* Card Title style */
+      .card-title {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+      }
+      /* Card Text style for subtitle */
+      .card-subtitle {
+        font-size: 0.75rem;
+        color: #666666;
+        margin-bottom: 0.5rem;
+      }
+      /* Icon style */
+      .icon-small {
+        width: 18px;
+        height: 18px;
+        fill: #0c1226;
+        margin-right: 0.3rem;
+        vertical-align: middle;
+      }
+      /* Card footer icons and actions */
+      .card-footer-icons {
+        font-size: 0;
+        margin-top: 0.5rem;
+      }
+      .card-footer-icons button {
+        font-size: 0.8rem;
+      }
       .btn-custom-primary {
         background-color: #121a2c;
         color: #fff;
@@ -42,61 +119,6 @@
         background-color: #0d1321;
         color: #fff;
       }
-      .card-profile {
-        border-radius: 0.5rem;
-        box-shadow: 0 2px 6px rgb(0 0 0 / 0.06), 0 20px 40px rgb(0 0 0 / 0.1);
-      }
-      .card-profile img {
-        border-radius: 0.5rem 0.5rem 0 0;
-        max-height: 350px;
-        object-fit: cover;
-      }
-      .profile-footer {
-        background: #faf9f9;
-        padding: 1rem 1.25rem;
-        border-radius: 0 0 0.5rem 0.5rem;
-      }
-      .profile-footer h5 {
-        font-weight: 700;
-        margin-bottom: 0;
-      }
-      .profile-footer small {
-        color: #777;
-        font-weight: 400;
-        font-style: normal;
-      }
-      .social-icons a {
-        color: #121a2c;
-        font-size: 1.25rem;
-        margin-right: 1rem;
-        transition: color 0.3s ease;
-      }
-      .social-icons a:hover,
-      .social-icons a:focus {
-        color: #0d1321;
-        text-decoration: none;
-      }
-      .download-cv {
-        cursor: pointer;
-        font-weight: 500;
-        color: #121a2c;
-        margin-left: 1rem;
-        display: inline-flex;
-        align-items: center;
-        user-select: none;
-        transition: color 0.3s ease;
-      }
-      .download-cv svg {
-        margin-left: 0.25rem;
-        height: 20px;
-        width: 20px;
-        vertical-align: middle;
-        fill: currentColor;
-      }
-      .download-cv:hover {
-        color: #0d1321;
-        text-decoration: none;
-      }
     </style>
   </head>
   <body>
@@ -104,7 +126,7 @@
       <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#">
           <img
-            src="logo_dumbwaysid.png"
+            src="assets/images/logo_dumbwaysid.png"
             alt="Logo"
             width="64"
             height="44"
@@ -147,72 +169,298 @@
     <section class="container py-5 my-5">
       <div class="row rounded-3 shadow card-profile p-5">
         <div class="col-md-12">
-          <h2 class="text-center fw-bold">Get In Touch</h2>
-          <form>
-            <div class="mb-3">
-              <label for="nameInput" class="form-label fw-semibold">Name</label>
-              <input
-                type="text"
-                class="form-control shadow"
-                id="nameInput"
-                placeholder="Your full name"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="emailInput" class="form-label fw-semibold">Email</label>
-              <input
-                type="email"
-                class="form-control shadow"
-                id="emailInput"
-                placeholder="name@example.com"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="phoneInput" class="form-label fw-semibold">Phone Number</label>
-              <input
-                type="tel"
-                class="form-control shadow"
-                id="phoneInput"
-                placeholder="+62 8123456789"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="subjectSelect" class="form-label fw-semibold">Subject</label>
-              <select class="form-select shadow" id="subjectSelect" required>
-                <option value="" selected disabled>Choose a subject</option>
-                <option value="general">General Inquiry</option>
-                <option value="project">Project Collaboration</option>
-                <option value="support">Support</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <label for="messageTextarea" class="form-label fw-semibold"
-                >Your Message</label
-              >
-              <textarea
-                class="form-control shadow"
-                id="messageTextarea"
-                rows="4"
-                placeholder="Write your message here..."
-                required
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              class="btn btn-custom-primary d-block ms-auto text-lowercase fw-semibold"
+          <!-- Add Project Form -->
+          <section class="mb-5">
+            <h3 class="text-center fw-bold mb-4" style="letter-spacing: 0.06em">
+              ADD MY PROJECT
+            </h3>
+            <form>
+              <div class="mb-3">
+                <label for="projectName" class="form-label fw-semibold"
+                  >Project Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="projectName"
+                  placeholder=""
+                />
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6 mb-3 mb-md-0">
+                  <label for="startDate" class="form-label fw-semibold"
+                    >Start Date</label
+                  >
+                  <input type="date" class="form-control" id="startDate" />
+                </div>
+                <div class="col-md-6">
+                  <label for="endDate" class="form-label fw-semibold"
+                    >End Date</label
+                  >
+                  <input type="date" class="form-control" id="endDate" />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="description" class="form-label fw-semibold"
+                  >Description</label
+                >
+                <textarea
+                  class="form-control"
+                  id="description"
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <fieldset class="mb-3 row">
+                <legend class="col-form-label fw-semibold mb-2">
+                  Technologies
+                </legend>
+                <div class="col-md-4 col-sm-6 d-grid gap-3">
+                  <div
+                    class="form-check form-check-inline d-flex align-items-center gap-2"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="nodejs"
+                      value="Node Js"
+                    />
+                    <label class="form-check-label" for="nodejs">Node Js</label>
+                  </div>
+                  <div
+                    class="form-check form-check-inline d-flex align-items-center gap-2"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="nextjs"
+                      value="Next Js"
+                    />
+                    <label class="form-check-label" for="nextjs">Next Js</label>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 d-grid gap-3">
+                  <div
+                    class="form-check form-check-inline d-flex align-items-center gap-2"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="reactjs"
+                      value="React Js"
+                    />
+                    <label class="form-check-label" for="reactjs"
+                      >React Js</label
+                    >
+                  </div>
+                  <div
+                    class="form-check form-check-inline d-flex align-items-center gap-2"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="typescript"
+                      value="TypeScript"
+                    />
+                    <label class="form-check-label" for="typescript"
+                      >TypeScript</label
+                    >
+                  </div>
+                </div>
+              </fieldset>
+
+              <div class="mb-4">
+                <label for="uploadImage" class="form-label fw-semibold"
+                  >Upload Image</label
+                >
+                <input class="form-control" type="file" id="uploadImage" />
+              </div>
+
+              <div class="text-end">
+                <button id="submitBtn" type="submit">submit</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- Projects List Section -->
+          <section class="bg-white rounded-3 shadow p-5">
+            <h3 class="text-center fw-bold mb-5" style="letter-spacing: 0.06em">
+              MY PROJECT
+            </h3>
+            <div
+              class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"
             >
-              submit
-            </button>
-          </form>
+              <!-- Card 1 -->
+              <div class="col col-sm-12">
+                <div class="card shadow-sm h-100">
+                  <img
+                    src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bd7142a8-6e40-4093-9ae9-2723f4ea964d.png"
+                    class="card-img-top"
+                    alt="Collection of colorful mobile app icons floating on a dark background, representing diverse mobile applications"
+                    onerror="this.onerror=null;this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bc2956d3-8dfd-403f-9ddc-9bf7082cea7b.png';"
+                  />
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Dumbways Mobile App - 2021</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      duration: 3 bulan
+                    </h6>
+                    <p class="card-text small flex-grow-1">
+                      App that used for dumbways education. It was deployed and
+                      can downloaded on playstore. Happy download
+                    </p>
+                    <div
+                      class="card-footer-icons mt-3 d-flex align-items-center"
+                    >
+                      <button type="button" class="btn btn-edit flex-grow-1">
+                        edit
+                      </button>
+                      <button type="button" class="btn btn-delete">
+                        delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2 -->
+              <div class="col col-sm-12">
+                <div class="card shadow-sm h-100">
+                  <img
+                    src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/927c78a4-d308-4762-891a-d866a0ee776c.png"
+                    class="card-img-top"
+                    alt="Photo of a hand holding a smartphone that displays a mobile app interface, outdoor blurred background"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found';"
+                  />
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Dumbways Mobile App - 2021</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      duration: 3 bulan
+                    </h6>
+                    <p class="card-text small flex-grow-1">
+                      App that used for dumbways education. It was deployed and
+                      can downloaded on playstore. Happy download
+                    </p>
+                    <div
+                      class="card-footer-icons mt-3 d-flex align-items-center"
+                    >
+                      <button type="button" class="btn btn-edit flex-grow-1">
+                        edit
+                      </button>
+                      <button type="button" class="btn btn-delete">
+                        delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 3 -->
+              <div class="col col-sm-12">
+                <div class="card shadow-sm h-100">
+                  <img
+                    src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/961730a3-d9d1-4b6a-a5fd-939c9a1657b7.png"
+                    class="card-img-top"
+                    alt="Closeup view of computer screen with colored source code editor showing web development programming"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found';"
+                  />
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Dumbways Mobile App - 2021</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      duration: 3 bulan
+                    </h6>
+                    <p class="card-text small flex-grow-1">
+                      App that used for dumbways education. It was deployed and
+                      can downloaded on playstore. Happy download
+                    </p>
+                    <div
+                      class="card-footer-icons mt-3 d-flex align-items-center"
+                    >
+                      <button type="button" class="btn btn-edit flex-grow-1">
+                        edit
+                      </button>
+                      <button type="button" class="btn btn-delete">
+                        delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 4 -->
+              <div class="col col-sm-12">
+                <div class="card shadow-sm h-100">
+                  <img
+                    src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3d7d5674-fd2e-4d1d-b1b8-d05269a743a6.png"
+                    class="card-img-top"
+                    alt="Dark-themed integrated development environment (IDE) screen showing programming code lines and interface"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found';"
+                  />
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Dumbways Mobile App - 2021</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      duration: 3 bulan
+                    </h6>
+                    <p class="card-text small flex-grow-1">
+                      App that used for dumbways education. It was deployed and
+                      can downloaded on playstore. Happy download
+                    </p>
+                    <div
+                      class="card-footer-icons mt-3 d-flex align-items-center"
+                    >
+                      <button type="button" class="btn btn-edit flex-grow-1">
+                        edit
+                      </button>
+                      <button type="button" class="btn btn-delete">
+                        delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 5 -->
+              <div class="col col-sm-12">
+                <div class="card shadow-sm h-100">
+                  <img
+                    src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bd05ad75-f455-4f1a-8530-bf6a29f25dcc.png"
+                    class="card-img-top"
+                    alt="Close-up of a hand holding a phone showing a mobile application in dark theme"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Image+Not+Found';"
+                  />
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Dumbways Web App - 2021</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      duration: 5 bulan
+                    </h6>
+                    <p class="card-text small flex-grow-1">
+                      App that used for dumbways education. It was deployed and
+                      can downloaded on playstore. Happy download
+                    </p>
+                    <div
+                      class="card-footer-icons mt-3 d-flex align-items-center"
+                    >
+                      <button type="button" class="btn btn-edit flex-grow-1">
+                        edit
+                      </button>
+                      <button type="button" class="btn btn-delete">
+                        delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
 
       <div class="p-4 p-lg-5"></div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/scripts/index.js"></script>
   </body>
 </html>
