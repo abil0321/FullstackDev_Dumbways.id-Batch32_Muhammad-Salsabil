@@ -125,7 +125,7 @@
 
         <div class="collapse navbar-collapse" id="navMenu">
           <ul class="navbar-nav align-items-center gap-lg-3">
-            <li class="nav-item ">
+            <li class="nav-item">
               <a class="nav-link active fw-bold" aria-current="page" href="#"
                 >Home</a
               >
@@ -145,67 +145,68 @@
     </nav>
 
     <section class="container py-5 my-5">
-      <div class="row bg-white rounded-3 shadow card-profile p-5">
-        <div class="col-md-8 col-sm-12">
-          <div class="d-grid gap-5">
-            <div class="d-grid gap-4">
-              <h3 class="fw-bold">Hi Welcome to my hut</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                tristique purus orci libero egestas ut. Augue suspendisse
-                blandit lorem massa ipsum, urna, egestas mi, lacinia. Dui fusce
-                etiam libero, lectus amet, risus molestie malesuada. Odio nam
-                purus consectetur euismod congue leo quisque. Turpis amet
-                sollicitudin nunc non in lectus dolor amet. Amet ullamcorper
-                faucibus tincidunt accumsan ac adipiscing arcu. Donec tristique
-                at proin maecenas. Ante elit et iaculis ac sit.
-              </p>
-
-              <div class="d-flex align-items-center">
-                <a href="#" class="btn btn-custom-primary text-decoration-none"
-                  >contact</a
-                >
-                <a
-                  href="#"
-                  class="download-cv text-decoration-none"
-                  title="Download CV"
-                >
-                  download CV <i class="bi bi-download ms-2"></i>
-                </a>
-              </div>
-            </div>
-
-            <div class="social-icons d-flex gap-3 ms-2 mt-4 mb-sm-5">
-              <a href="#" aria-label="LinkedIn" title="LinkedIn"
-                ><i class="fab fa-linkedin-in fs-3"></i
-              ></a>
-              <a href="#" aria-label="Instagram" title="Instagram"
-                ><i class="fab fa-instagram fs-3"></i
-              ></a>
-              <a href="#" aria-label="Facebook" title="Facebook"
-                ><i class="fab fa-facebook-f fs-3"></i
-              ></a>
-              <a href="#" aria-label="Twitter" title="Twitter"
-                ><i class="fab fa-twitter fs-3"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-12">
-          <div class="profile-card" style="min-width: 280px; max-width: 350px">
-            <div class="card shadow-sm rounded-3">
-              <img
-                src="foto muka.png"
-                alt="Portrait photo of Rhoma Irama, a man with light brown hair, beard, glasses, and white t-shirt, standing outdoors with blurred background"
-                class="card-img-top"
+      <div class="row rounded-3 shadow card-profile p-5">
+        <div class="col-md-12">
+          <h2 class="text-center fw-bold">Get In Touch</h2>
+          <form>
+            <div class="mb-3">
+              <label for="nameInput" class="form-label fw-semibold">Name</label>
+              <input
+                type="text"
+                class="form-control shadow"
+                id="nameInput"
+                placeholder="Your full name"
+                required
               />
-              <div class="profile-footer text-center">
-                <h5 class="mb-1">Rhoma Irama</h5>
-                <small>Fullstack Developer</small>
-              </div>
             </div>
-          </div>
+            <div class="mb-3">
+              <label for="emailInput" class="form-label fw-semibold">Email</label>
+              <input
+                type="email"
+                class="form-control shadow"
+                id="emailInput"
+                placeholder="name@example.com"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="phoneInput" class="form-label fw-semibold">Phone Number</label>
+              <input
+                type="tel"
+                class="form-control shadow"
+                id="phoneInput"
+                placeholder="+62 8123456789"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="subjectSelect" class="form-label fw-semibold">Subject</label>
+              <select class="form-select shadow" id="subjectSelect" required>
+                <option value="" selected disabled>Choose a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="project">Project Collaboration</option>
+                <option value="support">Support</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="messageTextarea" class="form-label fw-semibold"
+                >Your Message</label
+              >
+              <textarea
+                class="form-control shadow"
+                id="messageTextarea"
+                rows="4"
+                placeholder="Write your message here..."
+                required
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-custom-primary d-block ms-auto text-lowercase fw-semibold"
+            >
+              submit
+            </button>
+          </form>
         </div>
       </div>
 
