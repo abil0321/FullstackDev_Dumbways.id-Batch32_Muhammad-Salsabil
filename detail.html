@@ -92,7 +92,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
       <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
           <img
             src="assets/images/logo_dumbwaysid.png"
             alt="Logo"
@@ -116,12 +116,15 @@
         <div class="collapse navbar-collapse" id="navMenu">
           <ul class="navbar-nav align-items-center gap-lg-3">
             <li class="nav-item">
-              <a class="nav-link active fw-bold" aria-current="page" href="#"
+              <a
+                class="nav-link active fw-bold"
+                aria-current="page"
+                href="index.html"
                 >Home</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">My Project</a>
+              <a class="nav-link" href="index.html">My Project</a>
             </li>
           </ul>
 
@@ -137,12 +140,13 @@
     <section class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="section-title">Dumbways Web App</h1>
+          <h1 class="section-title" id="project-title">Dumbways Web App</h1>
 
           <!-- Row with image and project info -->
           <div class="row align-items-center justify-content-center">
             <div class="col-12 col-md-6 image-container mb-sm-3">
               <img
+                id="project-image"
                 src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/27437927-1a75-4d20-82b4-f28af02f4860.png"
                 alt="Close-up view of a smartphone being held showing a stock investment app interface in dark theme with graphs and buy/sell buttons"
                 class="img-fluid"
@@ -154,41 +158,20 @@
                 <span class="info-label fs-4 mb-3">Duration</span>
                 <div class="d-flex gap-2 align-items-center mb-2 fs-2">
                   <i class="fa-regular fa-calendar-days"></i>
-                  <span class="fs-6">12 Jan 2021 - 11 Feb 2021</span>
+                  <span class="fs-6"
+                    ><b id="start-date"></b> - <b id="end-date"></b
+                  ></span>
                 </div>
 
                 <div class="d-flex gap-2 align-items-center mt-2">
                   <i class="fa-regular fa-clock fs-2"></i>
-                  <span class="fs-6">1 month</span>
+                  <span class="fs-6" id="duration"></span>
                 </div>
               </div>
 
               <div class="tech-icons d-flex flex-column">
                 <span class="info-label fs-4 mb-3">Technologies</span>
-                <div class="row">
-                  <div class="col-md-5 col-sm-5 d-grid gap-2">
-                    <div class="d-flex align-items-center gap-3 mb-2 fs-2">
-                      <!-- React icon (stylized atom) -->
-                      <i class="fa-brands fa-react"></i>
-                      <span class="tech-item">React Js</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-3 mb-2 fs-2">
-                      <i class="fa-brands fa-js"></i>
-                      <span class="tech-item">JavaScript</span>
-                    </div>
-                  </div>
-                  <div class="col-md-5 col-sm-5 d-grid gap-2">
-                    <div class="d-flex align-items-center gap-3 mb-2 fs-2">
-                      <i class="fa-brands fa-node-js"></i>
-                      <span class="tech-item">Node Js</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-3 fs-2">
-                      <!-- Socket IO icon approximated as a socket with waves -->
-                      <i class="fa-brands fa-pied-piper"></i>
-                      <span class="tech-item">Socket IO</span>
-                    </div>
-                  </div>
-                </div>
+                <div id="tech-container" class="row"></div>
               </div>
             </div>
           </div>
@@ -196,7 +179,7 @@
           <!-- Detailed paragraph content below the image area -->
           <div class="row">
             <div class="col-12 col-md-10 content-text">
-              <p>
+              <p id="project-description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Faucibus morbi diam, sed elementum semper luctus. Venenatis
                 laoreet id morbi amet, sit volutpat pulvinar scelerisque tempor.
@@ -208,60 +191,14 @@
                 facilisis morbi ac condimentum odio. Dolor, dignissim viverra
                 iaculis consectetur integer ipsum, egestas.
               </p>
-              <p>
-                Sed nunc, tristique suspendisse ut quisque vitae adipiscing. Ac
-                pellentesque sed nunc, quisque risus. Id in magnis mi justo,
-                placerat. In curabitur nunc egestas in pellentesque non. Eu nunc
-                eros, quisque feugiat. Commodo, ipsum scelerisque tristique nisl
-                orci massa. Viverra nulla sit tortor, nisl, arcu nec.
-              </p>
-              <p>
-                Auge volutpat massa adipiscing rhoncus sit non vel. Cursus purus
-                est vestibulum viverra. Rhoncus a amet, volutpat auctor
-                tincidunt vitae elit aliquam. Morbi faucibus sed viverra nibh,
-                bibendum mi. Ornare nulla sed viverra semper et interdum nisl
-                tellus. In euismod nulla sed nam lorem urna. Tortor, integer
-                viverra sit nibh. Interdum vel et sagittis, phasellus ultricies.
-                Nullac luctus in mattis in. Duis in feugiat vestibulum, sit
-                venenatis suscipit ultricies elit. Ut in amet leo imperdiet
-                nunc. Ornare scelerisque commodo ut praesent tellus proin dolor
-                non turpis.
-              </p>
-              <p>
-                Nunc, tempor ornare enim, et faucibus tortor, pharetra,
-                phasellus. Tortor viverra ullamcorper commodo nunc. Odio id
-                dignissim est ipsum sed nibh odio faucibus odio. Urna
-                scelerisque eu, eu, ac amet turpis leo. Mi, molestie aliquam
-                odio eleifend nisi, sed mauris accumsan etiam. At ut fringilla
-                tempor, elit, velit.
-              </p>
-              <p>
-                Eget in et sapien, ac. At pulvinar nisl nibh non. Dictum lacus
-                congue dui est, etiam tortor massa vulputate morbi. Fermentum et
-                at convallis nunc pharetra. Faucibus ac pulvinar magna morbi
-                turpis pulvinar tristique suspendisse suscipit. Justo, quam
-                ultrices feugiat mattis dignissim id sollicitudin cras libero.
-                Velit ultrices nulla ultricies eu, elementum. Sit tellus varius
-                scelerisque augue pretium. Faucibus mauris consectetur fermentum
-                massa donec faucibus quam eu. Interdum tristique vitae sed
-                blandit placerat nullam elit. Vel mollis eget ut ipsum,
-                curabitur. Fermentum nisl, nec amet sit netus venenatis feugiat.
-                Sed tortor magna eget gravida. Tellus nec dolor magna nulla. Ut
-                congue porttitor phasellus ac senectus. Sem sed sagittis enim
-                nulla dolor. Egestas cras euismod mi sed. Tincidunt tortor sed
-                dui senectus augue a eget mollis odio. Et ultrices mauris et
-                dolor et amet, habitasse. Nulla massa mauris vestibulum aliquet
-                ornare porttitor. Lacus ultricies eget dui feugiat sit lorem
-                dolor, mauris.
-              </p>
-              <p>
-                Nunc ipsum lectus at mauris egestas. Vitae pulvinar tellus neque
-                elit blandit sodales. Fringilla non, neque risus id iaculis
-                volutpat aliquet luctus adipiscing. Eu tincidunt ante morbi
-                cursus risus adipiscing nam. Nec, urna, ut amet, neque enim nam
-                nibh. Lectus sed suscipit sed non arcu, sed in suscipit. Lectus
-                in ut volutpat donec id sed. Tellus ut aliquet porttitor.
-              </p>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-custom-primary" onclick="goBack()">
+                Back to Project List
+              </button>
             </div>
           </div>
         </div>
