@@ -7,7 +7,7 @@ if (projectId) {
 
   if (projectData) {
     // Update title
-    document.getElementById("project-title").textContent = projectData.name;
+    document.getElementById("project-title").textContent = "Detail " + projectData.name;
 
     // Update gambar
     document.getElementById("project-image").src = projectData.imageUrl;

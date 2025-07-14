@@ -16,7 +16,7 @@ const uploadImage = document.querySelector("#uploadImage");
 const submitBtn = document.querySelector("#submitBtn");
 const cardsContainer = document.querySelector(".cards-container");
 
-// Function to load all projects from localStorage
+//TODO: Function to load all projects from localStorage
 function loadAllProjects() {
   const projects = [];
 
@@ -40,20 +40,20 @@ function loadAllProjects() {
   return projects;
 }
 
-// Function to display all projects
+// TODO: Function to display all projects
 function displayAllProjects() {
   const projects = loadAllProjects();
 
-  // Clear existing cards
+  //* Clear existing cards
   cardsContainer.innerHTML = "";
 
-  // Create cards for each project
+  //* Create cards for each project
   projects.forEach((project) => {
     createProjectCard(project);
   });
 }
 
-// Function to create a project card
+// TODO: Function to create a project card
 function createProjectCard(projectData) {
   const newCard = document.createElement("div");
   newCard.classList.add("col", "col-sm-12", "col-lg-4", "col-md-6");
@@ -63,19 +63,21 @@ function createProjectCard(projectData) {
     <div class="card shadow-sm h-100">
       <img src="${
         projectData.imageUrl || "default-image.jpg"
-      }" class="card-img-top" alt="Project Image">
+      }" class="card-img-top" alt="Project Image" onclick="window.location.href='detail.html?id=${
+    projectData.id
+  }'">
       <div class="card-body d-flex flex-column">
-        <h5 class="card-title">${projectData.name}</h5>
-        <p class="card-text">Start Date: ${projectData.startDate}</p>
-        <p class="card-text">End Date: ${projectData.endDate}</p>
-        <p class="card-text">Description: ${projectData.description}</p>
-        <p class="card-text">Technologies: ${projectData.technologies.join(
+        <h5 class="card-title mb-1"><a href="detail.html?id=${projectData.id}"> ${projectData.name}</a></h5>
+        <span class="card-text">Start Date: ${projectData.startDate}</span>
+        <span class="card-text">End Date: ${projectData.endDate}</span>
+        <p class="card-text mt-2"><b>Description:</b> ${projectData.description}</p>
+        <p class="card-text"><b>Technologies:</b> ${projectData.technologies.join(
           ", "
         )}</p>
-        <div class="card-footer-icons mt-3 d-flex align-items-center">
-          <button class="btn btn-edit flex-grow-1" onclick="window.location.href='detail.html?id=${
+        <div class="card-footer-icons mt-3 d-flex gap-3 align-items-center">
+          <button class="btn btn-edit flex-grow-1" onclick="window.location.href='edit.html?id=${
             projectData.id
-          }'">Detail</button>
+          }'">Edit</button>
           <button class="btn btn-delete" onclick="deleteProject('${
             projectData.id
           }')">Delete</button>
