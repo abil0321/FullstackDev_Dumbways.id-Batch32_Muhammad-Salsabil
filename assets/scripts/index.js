@@ -95,7 +95,7 @@ function createProjectCard(projectData) {
   cardsContainer.appendChild(newCard);
 }
 
-// Form submission handler
+// TODO: Form submission handler
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
   displayAllProjects();
 });
 
-// Export functions for global access
+// TODO: Export functions for global access
 window.deleteProject = deleteProject;
 window.getAllProjectData = getAllProjectData;
 window.searchProjects = searchProjects;
