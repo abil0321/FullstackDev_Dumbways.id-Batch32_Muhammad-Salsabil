@@ -109,3 +109,8 @@ body {
 .card-img-top:hover {
   cursor: pointer;
 }
+
+.card-img-container {
+  max-height: 400px;
+  overflow: hidden;
+}

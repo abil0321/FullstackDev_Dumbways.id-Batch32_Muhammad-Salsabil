@@ -61,16 +61,22 @@ function createProjectCard(projectData) {
 
   newCard.innerHTML = `
     <div class="card shadow-sm h-100">
-      <img src="${
-        projectData.imageUrl || "default-image.jpg"
-      }" class="card-img-top" alt="Project Image" onclick="window.location.href='detail.html?id=${
+      <div class="card-img-container">
+        <img src="${
+          projectData.imageUrl || "default-image.jpg"
+        }" class="card-img-top" alt="Project Image" onclick="window.location.href='detail.html?id=${
     projectData.id
   }'">
+      </div>
       <div class="card-body d-flex flex-column">
-        <h5 class="card-title mb-1"><a href="detail.html?id=${projectData.id}"> ${projectData.name}</a></h5>
+        <h5 class="card-title mb-1"><a href="detail.html?id=${
+          projectData.id
+        }"> ${projectData.name}</a></h5>
         <span class="card-text">Start Date: ${projectData.startDate}</span>
         <span class="card-text">End Date: ${projectData.endDate}</span>
-        <p class="card-text mt-2"><b>Description:</b> ${projectData.description}</p>
+        <p class="card-text mt-2"><b>Description:</b> ${
+          projectData.description
+        }</p>
         <p class="card-text"><b>Technologies:</b> ${projectData.technologies.join(
           ", "
         )}</p>
