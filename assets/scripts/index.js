@@ -18,24 +18,22 @@ const cardsContainer = document.querySelector(".cards-container");
 
 //TODO: Function to load all projects from localStorage
 function loadAllProjects() {
-  const projects = [];
+  const keys = Array.from({ length: localStorage.length }, (_, i) =>
+    localStorage.key(i)
+  );
 
-  // Loop through all localStorage keys
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-
-    // Check if the key starts with "project_"
-    if (key && key.startsWith("project_")) {
+  const projects = keys
+    .filter((key) => key && key.startsWith("project_")) // Filter only project keys
+    .map((key) => {
       try {
         const projectData = JSON.parse(localStorage.getItem(key));
-        if (projectData) {
-          projects.push(projectData);
-        }
+        return projectData || null; // Return projectData or null if empty
       } catch (error) {
         console.error(`Error parsing project data for key ${key}:`, error);
+        return null; // Return null on error
       }
-    }
-  }
+    })
+    .filter((project) => project !== null); // Remove null values
 
   return projects;
 }

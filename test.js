@@ -1,4 +1,4 @@
 let a, b;
-a = "a"
-b = "b"
-console.log(a, b)
+a = 17
+b = 5
+console.log(a%b)
