@@ -80,7 +80,7 @@ function createProjectCard(projectData) {
         <p class="card-text"><b>Technologies:</b> ${projectData.technologies.join(
           ", "
         )}</p>
-        <div class="card-footer-icons mt-3 d-flex gap-3 align-items-center">
+        <div class="card-footer-icons mt-3 d-flex gap-1 align-items-center">
           <button class="btn btn-edit flex-grow-1" onclick="window.location.href='edit.html?id=${
             projectData.id
           }'">Edit</button>
