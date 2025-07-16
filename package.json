@@ -1,0 +1,27 @@
+{
+  "name": "personal-web-msalsabil",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abil0321/FullstackDev_Dumbways.id-Batch32_Muhammad-Salsabil.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abil0321/FullstackDev_Dumbways.id-Batch32_Muhammad-Salsabil/issues"
+  },
+  "homepage": "https://github.com/abil0321/FullstackDev_Dumbways.id-Batch32_Muhammad-Salsabil#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "hbs": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
