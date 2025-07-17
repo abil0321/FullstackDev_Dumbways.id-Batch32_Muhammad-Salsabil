@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Contact</title>
+</head>
+<body>
+  <h1>Halaman Contact</h1>
+  <p>My Contact Number: {{phonenumberContact}}</p>
+  
+  <form action="/contact" method="POST">
+    {{!-- * jangan lupa untuk name nya, karena di express js akan otomatis menangkap name dari formnya --}}
+    <input type="text" id="name" name="name">
+    <input type="password" id="password" name="password">
+    <button type="submit">Submit</button>
+  </form>
+
+  <script src="../assets/js/contact.js"></script>
+</body>
+</html>

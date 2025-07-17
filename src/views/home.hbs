@@ -7,17 +7,15 @@
   </head>
   <body>
     <p>This is Homepage</p>
-   <ul>
-    {{#each transaksiList}}
-      
-        <td>{{this.id}}</td>
-        <td>{{this.name}}</td>
-        <td>{{this.harga}}</td>
-        <td>{{this.qty}}</td>
-        <td>{{this.total}}</td>
-      
+
+    {{#each data}}
+      <div>{{this.id}}
+        -
+        {{this.title}}
+        -
+        <a href="/portfolio/{{this.id}}">Click This Link!</a>
+      </div>
     {{/each}}
-   </ul>
 
     <script src="../assets/js/script.js"></script>
   </body>

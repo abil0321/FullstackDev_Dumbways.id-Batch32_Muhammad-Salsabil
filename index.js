@@ -13,18 +13,71 @@ app.set("views", "src/views");
 //* app.use("path-url", express.static("path-folder"));
 app.use("/assets", express.static("src/assets"));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(express.urlencoded({ extended: false }));
 
 //* NOTE: req (request) => dari client ke server
 //* NOTE: res (response) => dari server ke client
-app.get("/home", home); //* Route handler ----------route home----------
+// app.get("/", (req, res) => {
+//   res.send("Hello World!");
+// });
 
-app.get("/about", (req, res) => {
+//* Route handler ----------route home----------
+app.get("/", home);
+app.get("/about", about);
+app.get("/contact", contact);
+app.post("/contact", store_contact);
+app.get("/portfolio/:id", portofolioDetail);
+
+//* fungsi dari route '/' -------------fungsi home----------------
+let data = [
+  {
+    id: 1,
+    title: "Belajar HTML",
+  },
+  {
+    id: 2,
+    title: "Belajar CSS",
+  },
+  {
+    id: 3,
+    title: "Belajar JS",
+  },
+];
+function home(req, res) {
+  res.render("home", { data });
+}
+function about(req, res) {
   const phonenumber = "08123456789";
   res.render("about", { phonenumber });
-});
+}
+
+function contact(req, res) {
+  const phonenumberContact = "08123456789";
+  res.render("contact", { phonenumberContact });
+}
+
+let accounts = [];
+function store_contact(req, res) {
+  // console.log(req.body);
+  let { name, password } = req.body;
+  let account = {
+    name,
+    password,
+  };
+  accounts.push(account);
+  console.log(accounts);
+  console.log("contact berhasil disimpan");
+}
+
+function portofolioDetail(req, res) {
+  const { id } = req.params;
+
+  let result = data.find((element) => element.id == id);
+
+  res.render("portfolio", { result });
+}
+
+// TODO: Explore Mandiri -------------------------------------------------------
 
 // TODO: memanfaatkan request queries
 app.get("/search", (req, res) => {
@@ -38,13 +91,10 @@ app.get("/search", (req, res) => {
 // TODO: memanfaatkan request parameter
 app.get("/blog/:nama/:author", (req, res) => {
   const { nama, author } = req.params;
-  res.send(`<h1>Menemukan buku dengan Judul: ${nama} | Author: ${author}</h1> `);
+  res.send(
+    `<h1>Menemukan buku dengan Judul: ${nama} | Author: ${author}</h1> `
+  );
 });
-
-//* fungsi dari route '/' -------------fungsi home----------------
-function home(req, res) {
-  res.render("home");
-}
 
 // ! ---------------------------------------------------------------------------------------
 app.get("/not-found", (req, res) => {
