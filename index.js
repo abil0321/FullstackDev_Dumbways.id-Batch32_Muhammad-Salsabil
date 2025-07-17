@@ -67,6 +67,7 @@ function store_contact(req, res) {
   accounts.push(account);
   console.log(accounts);
   console.log("contact berhasil disimpan");
+  res.redirect("/")
 }
 
 function portofolioDetail(req, res) {
