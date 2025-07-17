@@ -9,7 +9,7 @@ const webAccess = `http://localhost:${port}`;
 app.set("view engine", "hbs");
 app.set("views", "src/views");
 
-// TODO: set static forlder
+// TODO: use static forlder
 //* app.use("path-url", express.static("path-folder"));
 app.use("/assets", express.static("src/assets"));
 
@@ -17,8 +17,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-//* req (request) => dari client ke server
-//* res (response) => dari server ke client
+//* NOTE: req (request) => dari client ke server
+//* NOTE: res (response) => dari server ke client
 app.get("/home", home); //* Route handler ----------route home----------
 
 app.get("/about", (req, res) => {
@@ -26,13 +26,36 @@ app.get("/about", (req, res) => {
   res.render("about", { phonenumber });
 });
 
+// TODO: memanfaatkan request queries
+app.get("/search", (req, res) => {
+  const { q } = req.query;
+  if (!q) {
+    return res.send(`<h1>Keyword Belum Dituliskan !</h1>`);
+  }
+  res.send(`<h1>Search Keyword: ${q}</h1>`);
+});
+
+// TODO: memanfaatkan request parameter
+app.get("/blog/:nama/:author", (req, res) => {
+  const { nama, author } = req.params;
+  res.send(`<h1>Menemukan buku dengan Judul: ${nama} | Author: ${author}</h1> `);
+});
+
+//* fungsi dari route '/' -------------fungsi home----------------
+function home(req, res) {
+  res.render("home");
+}
+
+// ! ---------------------------------------------------------------------------------------
+app.get("/not-found", (req, res) => {
+  res.send("<h1>Halaman Tidak Ditemukan</h1>");
+});
+app.use((req, res) => {
+  res.redirect("not-found");
+});
+
 app.listen(port, () => {
   console.log(
     `Example app listening on port ${port}, with access ${webAccess}`
   );
 });
-
-//* fungsi dari route '/' -------------fungsi home----------------
-function home(req, res) {
-  res.render("index");
-}
