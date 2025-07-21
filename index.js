@@ -44,7 +44,7 @@ let data = [
   },
 ];
 function home(req, res) {
-  res.render("home", { data });
+  res.render("home", { accounts });
 }
 function about(req, res) {
   const phonenumber = "08123456789";
@@ -61,20 +61,21 @@ function store_contact(req, res) {
   // console.log(req.body);
   let { name, password } = req.body;
   let account = {
+    id: accounts.length + 1, 
     name,
     password,
   };
   accounts.push(account);
   console.log(accounts);
   console.log("contact berhasil disimpan");
-  res.redirect("/")
+  res.redirect("/");
 }
 
 function portofolioDetail(req, res) {
   const { id } = req.params;
 
-  let result = data.find((element) => element.id == id);
-
+  let result = accounts.find((element) => element.id == id);
+  console.log(result);
   res.render("portfolio", { result });
 }
 

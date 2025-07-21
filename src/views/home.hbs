@@ -11,11 +11,9 @@
       <a href="/contact">Contact Me!</a>
     </div>
 
-    {{#each data}}
-      <div>{{this.id}}
-        -
-        {{this.title}}
-        -
+    {{#each accounts}}
+      <div>{{this.name}}
+        {{this.password}}
         <a href="/portfolio/{{this.id}}">Click This Link!</a>
       </div>
     {{/each}}
