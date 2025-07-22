@@ -1,0 +1,148 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{project.name}} - Project Detail</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css"
+    />
+    <link rel="stylesheet" href="/assets/css/detail.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+          <img
+            src="/assets/img/logo_dumbwaysid.png"
+            alt="Logo"
+            width="64"
+            height="44"
+            class="d-inline-block align-text-top me-3"
+          />
+        </a>
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav align-items-center gap-lg-3">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active fw-bold" href="/">My Project</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+            <li class="nav-item">
+              <a class="btn btn-custom-primary" href="/contact">Contact Me</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="container mt-5">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="section-title text-center mb-5">{{project.name}}</h1>
+
+          <div class="row align-items-start justify-content-center">
+            <div class="col-12 col-md-7 image-container mb-4">
+              <img
+                src="/assets/img/{{project.upload_image}}"
+                alt="{{project.name}}"
+                class="img-fluid rounded shadow"
+              />
+            </div>
+            <div class="col-12 col-md-5 info-col">
+              <div class="duration-icons d-flex flex-column mb-4">
+                <h3 class="info-label fs-4 mb-3">Duration</h3>
+                <div class="d-flex gap-2 align-items-center mb-2 fs-5">
+                  <i class="fa-regular fa-calendar-days"></i>
+                  <span class="fs-6">{{project.start_date_formatted}}
+                    -
+                    {{project.end_date_formatted}}</span>
+                </div>
+                <div class="d-flex gap-2 align-items-center mt-2 fs-5">
+                  <i class="fa-regular fa-clock"></i>
+                  <span class="fs-6">{{project.duration}}</span>
+                </div>
+              </div>
+
+              <div class="tech-icons d-flex flex-column">
+                <h3 class="info-label fs-4 mb-3">Technologies</h3>
+                <div class="row">
+                  <div class="col-6">
+                    {{#if project.nodejs}}
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="fab fa-node-js fs-4"></i>
+                        <span>Node Js</span>
+                      </div>
+                    {{/if}}
+                    {{#if project.nextjs}}
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="fab fa-react fs-4"></i>
+                        <span>Next Js</span>
+                      </div>
+                    {{/if}}
+                  </div>
+                  <div class="col-6">
+                    {{#if project.reactjs}}
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="fab fa-react fs-4"></i>
+                        <span>React Js</span>
+                      </div>
+                    {{/if}}
+                    {{#if project.typescript}}
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="fab fa-js-square fs-4"></i>
+                        <span>TypeScript</span>
+                      </div>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-10 content-text">
+              <p class="text-dark">{{project.description}}</p>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-md-12 text-center">
+              <a href="/" class="btn btn-custom-primary">
+                Back to Project List
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    ></script>
+  </body>
+</html>

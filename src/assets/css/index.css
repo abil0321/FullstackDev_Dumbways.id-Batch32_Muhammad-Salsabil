@@ -1,0 +1,116 @@
+body {
+  background: #e9ecef;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.nav-link:hover,
+.nav-link.active {
+  font-weight: 700;
+}
+
+.form-check-input {
+  width: 1.8em; /* Atur lebar checkbox */
+  height: 1.8em; /* Atur tinggi checkbox */
+}
+
+/* Submit button style */
+#submitBtn {
+  background-color: #0c1226;
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 2.5rem;
+  border-radius: 2rem;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#submitBtn:hover {
+  background-color: #070916;
+}
+/* Card button styles */
+.btn-edit,
+.btn-delete {
+  font-weight: 600;
+  padding: 0.25rem 1rem;
+  text-transform: lowercase;
+  font-size: 0.8rem;
+  /* border-radius: 2rem; */
+}
+.btn-edit {
+  background-color: #0c1226;
+  color: white;
+  border: none;
+}
+.btn-edit:hover {
+  background-color: #070916;
+  color: white;
+}
+.btn-delete {
+  background-color: #d33b32;
+  color: white;
+  border: none;
+  margin-left: 0.4rem;
+}
+.btn-delete:hover {
+  background-color: #a02a27;
+  color: white;
+}
+/* Card Title style */
+.card-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-title a{
+  text-decoration: none;
+  color: #0c1226;
+}
+/* Card Text style for subtitle */
+.card-subtitle {
+  font-size: 0.75rem;
+  color: #666666;
+  margin-bottom: 0.5rem;
+}
+/* Icon style */
+.icon-small {
+  width: 18px;
+  height: 18px;
+  fill: #0c1226;
+  margin-right: 0.3rem;
+  vertical-align: middle;
+}
+/* Card footer icons and actions */
+.card-footer-icons {
+  font-size: 0;
+  margin-top: 0.5rem;
+}
+.card-footer-icons button {
+  font-size: 0.8rem;
+}
+.btn-custom-primary {
+  background-color: #121a2c;
+  color: #fff;
+  border-radius: 50px;
+  padding-left: 1.9rem;
+  padding-right: 1.9rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  text-transform: lowercase;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+.btn-custom-primary:hover,
+.btn-custom-primary:focus {
+  background-color: #0d1321;
+  color: #fff;
+}
+
+.card-img-top:hover {
+  cursor: pointer;
+}
+
+.card-img-container {
+  max-height: 400px;
+  overflow: hidden;
+}
