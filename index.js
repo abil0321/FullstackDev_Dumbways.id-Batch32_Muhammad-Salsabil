@@ -59,7 +59,10 @@ app.get("/contact", contact);
 
 //* fungsi dari route '/' -------------fungsi home----------------
 async function loginWindow(req, res) {
-  res.render("login", { message: req.flash("message") });
+  res.render("login", { 
+    message: req.flash("message") ,
+    successMessage: req.flash("success")
+  });
 }
 async function login(req, res) {
   let { email, password } = req.body;
@@ -88,30 +91,38 @@ async function login(req, res) {
 }
 async function registerWindow(req, res) {
   res.render("register", {
-    message: req.flash("message"),
+    errorMessage: req.flash("message"),
   });
 }
 async function register(req, res) {
-  let { name, email, password } = req.body;
+  const { name, email, password } = req.body;
   try {
-    const isRegistered = await pool.query(
-      `SELECT * FROM users WHERE email='${email}'`
+    // Gunakan parameterized query untuk hindari SQL injection
+    const checkEmail = await pool.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
     );
-    console.log(isRegistered.rows);
-    if (isRegistered) {
+
+    // Perbaikan utama: Cek apakah ada hasil query (rows.length)
+    if (checkEmail.rows.length > 0) {
       req.flash("message", "Email sudah terdaftar");
       return res.redirect("/register");
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await pool.query(
-      `INSERT INTO users (email, password, name) VALUES ($1, $2, $3)`,
+      "INSERT INTO users (email, password, name) VALUES ($1, $2, $3)",
       [email, hashedPassword, name]
     );
+
+    // Tambahkan flash message untuk sukses registrasi
+    req.flash("success", "Registrasi berhasil! Silakan login");
     res.redirect("/login");
   } catch (err) {
     console.error(err);
-    res.send("Gagal mendaftar, silakan coba lagi.");
+    req.flash("message", "Gagal mendaftar, silakan coba lagi.");
+    res.redirect("/register");
   }
 }
 async function logout(req, res) {

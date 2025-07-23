@@ -21,11 +21,17 @@
           aria-label="Close sign in form"
         >&times;</button>
         <h4 class="mb-4">Sign in</h4>
-        {{#each message}}
+        {{#if message}}
           <div class="alert alert-danger" role="alert">
-            {{this}}
+            {{message}}
           </div>
-        {{/each}}
+        {{/if}}
+
+        {{#if successMessage}}
+          <div class="alert alert-success" role="alert">
+            {{successMessage}}
+          </div>
+        {{/if}}
 
         <form action="/login" method="POST">
           <div class="mb-3">
