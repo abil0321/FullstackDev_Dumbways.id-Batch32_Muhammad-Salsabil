@@ -35,12 +35,26 @@
           <li class="nav-item">
             <a class="nav-link" href="/about">About Me</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" >{{ dataUser.email }}</a>
+          </li>
         </ul>
 
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-2">
           <li class="nav-item">
-            <a class="btn btn-custom-primary" href="/contact">Contact Me!</a>
+            <a class="btn btn-primary" href="/login">Login</a>
           </li>
+          <li class="nav-item">
+            <a class="btn btn-primary" href="/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-success" href="/contact">Contact Me!</a>
+          </li>
+          {{#if dataUser}}
+          <li class="nav-item">
+            <a class="btn btn-danger" href="/logout">Logout</a>
+          </li>
+          {{/if}}
         </ul>
       </div>
     </div>
@@ -52,7 +66,7 @@
         <!-- Add Project Form -->
         <section class="mb-5">
           <h3 class="text-center fw-bold mb-4" style="letter-spacing: 0.06em">
-            ADD MY PROJECT
+            ADD {{ dataUser.name }} PROJECT
           </h3>
 
           <form id="form" action="/project" method="POST" enctype="multipart/form-data">

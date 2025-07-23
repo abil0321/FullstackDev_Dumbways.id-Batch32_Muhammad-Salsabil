@@ -3,6 +3,9 @@ import express from "express"; //* yang sekarang digunakan, menggunakan js ES6
 import pool from "./src/database/db.js";
 import multer from "multer";
 import path from "path";
+import bcrypt from "bcrypt";
+import session from "express-session";
+import flash from "express-flash";
 
 const app = express();
 const port = 3000;
@@ -23,11 +26,27 @@ const upload = multer({ storage: storage });
 app.set("view engine", "hbs");
 app.set("views", "src/views");
 
-// TODO: use static forlder
+// TODO: use static forlder, urlendcoded, and flash
 app.use("/assets", express.static("src/assets"));
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  session({
+    secret: "secretKey",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(flash());
 
 //* Route handler ----------route home----------
+app.get("/login", loginWindow);
+app.post("/login", login);
+
+app.get("/register", registerWindow);
+app.post("/register", register);
+
+app.get("/logout", logout);
+
 app.get("/", home);
 app.post("/project", upload.single("upload_image"), store_project);
 app.get("/project/:id", projectDetail);
@@ -39,16 +58,100 @@ app.get("/about", about);
 app.get("/contact", contact);
 
 //* fungsi dari route '/' -------------fungsi home----------------
+async function loginWindow(req, res) {
+  res.render("login", { message: req.flash("message") });
+}
+async function login(req, res) {
+  let { email, password } = req.body;
+  try {
+    // console.log(email, password);
+    const isRegistered = await pool.query(
+      `SELECT * FROM users WHERE email='${email}'`
+    );
+    const isMatch = await bcrypt.compare(
+      password,
+      isRegistered.rows[0].password
+    );
+    if (!isMatch) {
+      req.flash("message", "Password salah");
+      return res.redirect("/login");
+    }
+    req.session.users = {
+      name: isRegistered.rows[0].name,
+      email: isRegistered.rows[0].email,
+    };
+    res.redirect("/");
+  } catch (error) {
+    console.error(error);
+    res.send("Gagal login, silakan coba lagi.");
+  }
+}
+async function registerWindow(req, res) {
+  res.render("register", {
+    message: req.flash("message"),
+  });
+}
+async function register(req, res) {
+  let { name, email, password } = req.body;
+  try {
+    const isRegistered = await pool.query(
+      `SELECT * FROM users WHERE email='${email}'`
+    );
+    console.log(isRegistered.rows);
+    if (isRegistered) {
+      req.flash("message", "Email sudah terdaftar");
+      return res.redirect("/register");
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await pool.query(
+      `INSERT INTO users (email, password, name) VALUES ($1, $2, $3)`,
+      [email, hashedPassword, name]
+    );
+    res.redirect("/login");
+  } catch (err) {
+    console.error(err);
+    res.send("Gagal mendaftar, silakan coba lagi.");
+  }
+}
+async function logout(req, res) {
+  try {
+    // Hapus session user
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.status(500).send("Gagal logout");
+      }
+
+      // Hapus cookie session (jika menggunakan cookie-based session)
+      res.clearCookie("connect.sid"); // 'connect.sid' adalah nama default cookie session
+
+      // Redirect ke halaman login setelah logout berhasil
+      res.redirect("/login");
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+    res.status(500).send("Terjadi kesalahan saat logout");
+  }
+}
+
 async function home(req, res) {
   try {
     const result = await pool.query("SELECT * FROM projects ORDER BY id DESC");
-    const projects = result.rows.map((project) => {
-      return {
-        ...project,
-        duration: getDuration(project.start_date, project.end_date),
+    const projects = result.rows.map((project) => ({
+      ...project,
+      duration: getDuration(project.start_date, project.end_date),
+    }));
+
+    // Perbaikan: Gunakan return untuk menghentikan eksekusi
+    if (req.session.users) {
+      const dataUser = {
+        name: req.session.users.name,
+        email: req.session.users.email,
       };
-    });
-    res.render("home", { projects });
+      return res.render("home", { projects, dataUser }); // RETURN di sini
+    }
+    res.redirect("/login");
   } catch (err) {
     console.error(err);
     res.send("Gagal mengambil data");
@@ -227,7 +330,6 @@ function contact(req, res) {
   const phonenumberContact = "08123456789";
   res.render("contact", { phonenumberContact });
 }
-
 
 // ! ---------------------------------------------------------------------------------------
 app.get("/not-found", (req, res) => {
