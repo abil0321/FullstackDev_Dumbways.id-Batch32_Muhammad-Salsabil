@@ -20,7 +20,6 @@ body {
   font-weight: 600;
   padding: 0.5rem 2.5rem;
   border-radius: 2rem;
-  text-transform: lowercase;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -32,7 +31,6 @@ body {
 .btn-delete {
   font-weight: 600;
   padding: 0.25rem 1rem;
-  text-transform: lowercase;
   font-size: 0.8rem;
   /* border-radius: 2rem; */
 }
@@ -96,7 +94,6 @@ body {
   padding-right: 1.9rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  text-transform: lowercase;
   font-weight: 600;
   transition: background-color 0.3s ease;
 }

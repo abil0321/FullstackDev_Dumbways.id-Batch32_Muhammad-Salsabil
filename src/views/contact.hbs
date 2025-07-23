@@ -1,21 +1,117 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halaman Contact</title>
-</head>
-<body>
-  <h1>Halaman Contact</h1>
-  <p>My Contact Number: {{phonenumberContact}}</p>
-  
-  <form action="/contact" method="POST">
-    {{!-- * jangan lupa untuk name nya, karena di express js akan otomatis menangkap name dari formnya --}}
-    <input type="text" id="name" name="name">
-    <input type="password" id="password" name="password">
-    <button type="submit">Submit</button>
-  </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halaman Contact</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
 
-  <script src="../assets/js/contact.js"></script>
-</body>
+    <link rel="stylesheet" href="/assets/css/index.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+          <img
+            src="/assets/img/logo_dumbwaysid.png"
+            alt="Logo"
+            width="64"
+            height="44"
+            class="d-inline-block align-text-top me-3"
+          />
+        </a>
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav align-items-center gap-lg-3">
+            <li class="nav-item">
+              <a
+                class="nav-link active fw-bold"
+                aria-current="page"
+                href="/"
+              >Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">My Project</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About Me</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+            <li class="nav-item">
+              <a class="btn btn-custom-primary" href="/contact">Contact Me!</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="container py-5 my-5">
+
+      <h1>Halaman Contact</h1>
+      <p>My Contact Number: {{phonenumberContact}}</p>
+      <p>Jika ada pertanyaan, silakan hubungi saya melalui nomor di atas.</p>
+
+      <form action="/contact" method="POST">
+        {{! * jangan lupa untuk name nya, karena di express js akan otomatis menangkap name dari formnya }}
+        <div class="mb-3">
+          <label for="name" class="form-label">Email address</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Masukkan nama Anda"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            aria-describedby="emailHelp"
+            placeholder="name@example.com"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Example textarea</label>
+          <textarea
+            class="form-control"
+            id="message"
+            name="message"
+            placeholder="Tulis pesan Anda di sini"
+            rows="3"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send it!</button>
+      </form>
+    </section>
+
+    <script src="../assets/js/contact.js"></script>
+  </body>
 </html>

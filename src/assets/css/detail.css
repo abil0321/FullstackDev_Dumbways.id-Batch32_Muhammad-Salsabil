@@ -52,7 +52,6 @@ body {
   padding-right: 1.9rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  text-transform: lowercase;
   font-weight: 600;
   transition: background-color 0.3s ease;
 }
