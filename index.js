@@ -28,6 +28,14 @@ app.use("/assets", express.static("src/assets"));
 app.use(express.urlencoded({ extended: false }));
 
 //* Route handler ----------route home----------
+app.get("/login", loginWindow);
+app.post("/login", login);
+
+app.get("/register", registerWindow);
+app.post("/register", register);
+
+app.post("/logout", logout);
+
 app.get("/", home);
 app.post("/project", upload.single("upload_image"), store_project);
 app.get("/project/:id", projectDetail);
@@ -39,6 +47,10 @@ app.get("/about", about);
 app.get("/contact", contact);
 
 //* fungsi dari route '/' -------------fungsi home----------------
+async function loginWindow(req, res) {
+  res.render("login");
+}
+
 async function home(req, res) {
   try {
     const result = await pool.query("SELECT * FROM projects ORDER BY id DESC");

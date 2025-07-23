@@ -1,0 +1,114 @@
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/login.css" />
+  </head>
+
+  <body>
+    <div class="bg-cover" aria-hidden="true"></div>
+
+    <div class="login-container" role="main">
+      <section class="login-card" aria-label="Sign in form">
+        <button
+          class="btn-close-custom"
+          aria-label="Close sign in form"
+        >&times;</button>
+        <h4 class="mb-4">Sign in</h4>
+        <form>
+          <div class="mb-3">
+            <label for="emailOrPhone" class="form-label">Email or phone number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="emailOrPhone"
+              name="emailOrPhone"
+              autocomplete="username"
+              placeholder="Enter your email or phone"
+              required
+            />
+          </div>
+          <div class="mb-3 password-wrapper">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              required
+            />
+            <button
+              class="toggle-password-btn"
+              type="button"
+              aria-label="Toggle password visibility"
+              onclick="togglePasswordVisibility()"
+            ><span id="toggleText">Hide</span></button>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-secondary w-100 mb-3"
+            disabled
+            id="signInBtn"
+          >Sign in</button>
+
+          <div class="form-options">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="rememberMe"
+                checked
+              />
+              <label class="form-check-label" for="rememberMe">
+                Remember me
+              </label>
+            </div>
+            <a href="#" class="text-decoration-none" tabindex="0">Need help?</a>
+          </div>
+        </form>
+        <p class="mb-1" style="font-size: 0.875rem;">Don't have an account?
+          <a href="#" class="signup-link" tabindex="0">Sign up</a></p>
+
+        <p class="login-footer-text">
+          This page is protected by Google reCAPTCHA to ensure you're not a bot.
+          <a href="#" tabindex="0">Learn more.</a>
+        </p>
+      </section>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <script>
+      // Toggle password visibility and toggle text function
+      togglePasswordVisibility() { const pwd =
+      document.getElementById('password'); const toggleText =
+      document.getElementById('toggleText'); if (pwd.type === 'password') {
+      pwd.type = 'text'; toggleText.textContent = 'Show'; } else { pwd.type =
+      'password'; toggleText.textContent = 'Hide'; } } // Enable sign in button
+      only if inputs have some text const emailOrPhoneInput =
+      document.getElementById('emailOrPhone'); const passwordInput =
+      document.getElementById('password'); const signInBtn =
+      document.getElementById('signInBtn'); function updateSignInButton() { if
+      (emailOrPhoneInput.value.trim() !== '' && passwordInput.value.trim() !==
+      '') { signInBtn.disabled = false;
+      signInBtn.classList.remove('btn-secondary');
+      signInBtn.classList.add('btn-primary'); } else { signInBtn.disabled =
+      true; signInBtn.classList.add('btn-secondary');
+      signInBtn.classList.remove('btn-primary'); } }
+      emailOrPhoneInput.addEventListener('input', updateSignInButton);
+      passwordInput.addEventListener('input', updateSignInButton);
+    </script>
+  </body>
+
+</html>
