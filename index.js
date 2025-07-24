@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import bcrypt from "bcrypt";
 import session from "express-session";
 import flash from "express-flash";
+import { profile } from "console";
 
 const app = express();
 const port = 3000;
@@ -22,7 +23,7 @@ const storage = multer.diskStorage({
     cb(null, "src/assets/img/");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null, file.fieldname + Date.now() + path.extname(file.originalname));
   },
 });
 
@@ -61,7 +62,7 @@ app.get("/login", loginWindow);
 app.post("/login", login);
 
 app.get("/register", registerWindow);
-app.post("/register", register);
+app.post("/register", upload.single("upload_image"), register);
 
 app.get("/logout", logout);
 
@@ -91,12 +92,21 @@ async function login(req, res) {
   try {
     // console.log(email, password);
     const isRegistered = await pool.query(
-      `SELECT * FROM users WHERE email='${email}'`
+      "SELECT * FROM users WHERE email = $1",
+      [email]
     );
+
+    // Cek apakah email terdaftar
+    if (isRegistered.rows.length === 0) {
+      req.flash("message", "Email tidak terdaftar");
+      return res.redirect("/login");
+    }
+
     const isMatch = await bcrypt.compare(
       password,
       isRegistered.rows[0].password
     );
+    
     if (!isMatch) {
       req.flash("message", "Password salah");
       return res.redirect("/login");
@@ -104,6 +114,7 @@ async function login(req, res) {
     req.session.users = {
       name: isRegistered.rows[0].name,
       email: isRegistered.rows[0].email,
+      profile_img: isRegistered.rows[0].profile_img,
     };
     res.redirect("/");
   } catch (error) {
@@ -115,14 +126,20 @@ async function registerWindow(req, res) {
   if (!req.session.users) {
     res.render("register", {
       errorMessage: req.flash("message"),
+      error: req.flash("error"),
     });
   } else {
-    res.redirect("/");
+    res.redirect("/register");
   }
 }
 async function register(req, res) {
   const { name, email, password } = req.body;
   try {
+    let upload_image = null;
+    if (req.file) {
+      upload_image = req.file.filename;
+      console.log("File uploaded:", upload_image);
+    }
     // Gunakan parameterized query untuk hindari SQL injection
     const checkEmail = await pool.query(
       "SELECT * FROM users WHERE email = $1",
@@ -131,16 +148,23 @@ async function register(req, res) {
 
     // Perbaikan utama: Cek apakah ada hasil query (rows.length)
     if (checkEmail.rows.length > 0) {
+      // Hapus file jika sudah terupload
+      if (upload_image) {
+        fs.unlinkSync(path.join(__dirname, "src/assets/img", upload_image));
+      }
       req.flash("message", "Email sudah terdaftar");
       return res.redirect("/register");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Simpan ke database
     await pool.query(
-      "INSERT INTO users (email, password, name) VALUES ($1, $2, $3)",
-      [email, hashedPassword, name]
+      `INSERT INTO users (email, password, name, profile_img) 
+       VALUES ($1, $2, $3, $4)`,
+      [email, hashedPassword, name, upload_image]
     );
+    console.log("Registering user:", name, email, password, upload_image);
 
     // Tambahkan flash message untuk sukses registrasi
     req.flash("success", "Registrasi berhasil! Silakan login");
@@ -185,6 +209,7 @@ async function home(req, res) {
       const dataUser = {
         name: req.session.users.name,
         email: req.session.users.email,
+        profile_img: req.session.users.profile_img || "default.png",
       };
       return res.render("home", {
         projects,
@@ -371,7 +396,7 @@ async function store_project(req, res) {
     reactjs: !!req.body.reactjs,
     typescript: !!req.body.typescript,
   };
-
+  console.log(req.file);
   try {
     let upload_image = null;
     if (req.file) {
@@ -472,10 +497,10 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     req.flash("error", "Ukuran file terlalu besar (maks 2MB)");
-    return res.redirect("back");
+    return res.redirect("/");
   } else if (err) {
     req.flash("error", err.message);
-    return res.redirect("back");
+    return res.redirect("/");
   }
   next();
 });
