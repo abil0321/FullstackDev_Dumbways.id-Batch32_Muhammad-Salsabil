@@ -8,7 +8,6 @@ import { fileURLToPath } from "url";
 import bcrypt from "bcrypt";
 import session from "express-session";
 import flash from "express-flash";
-import { profile } from "console";
 
 const app = express();
 const port = 3000;
@@ -57,21 +56,47 @@ app.use(
 );
 app.use(flash());
 
-//* Route handler ----------route home----------
-app.get("/login", loginWindow);
-app.post("/login", login);
+function authMiddleware(req, res, next) {
+  if (req.session.users) {
+    return next(); // Jika user sudah login, lanjutkan ke route berikutnya
+  }
+  req.flash("message", "Silakan login terlebih dahulu");
+  res.redirect("/login"); // Jika belum login, redirect ke halaman login
+}
 
-app.get("/register", registerWindow);
-app.post("/register", upload.single("upload_image"), register);
+function guestMiddleware(req, res, next) {
+  if (!req.session.users) {
+    return next(); // Jika user belum login, lanjutkan ke route berikutnya
+  }
+  req.flash("message", "Anda sudah login");
+  res.redirect("/"); // Jika sudah login, redirect ke halaman utama
+}
+
+//* Route handler ----------route home----------
+app.get("/login", guestMiddleware, loginWindow);
+app.post("/login", guestMiddleware, login);
+
+app.get("/register", guestMiddleware, registerWindow);
+app.post("/register", guestMiddleware, upload.single("upload_image"), register);
 
 app.get("/logout", logout);
 
-app.get("/", home);
-app.post("/project", upload.single("upload_image"), store_project);
-app.get("/project/:id", projectDetail);
-app.get("/project/:id/edit", editProject);
-app.post("/project/:id/edit", upload.single("upload_image"), updateProject);
-app.post("/project/:id/delete", deleteProject);
+app.get("/", authMiddleware, home);
+app.post(
+  "/project",
+  authMiddleware,
+  upload.single("upload_image"),
+  store_project
+);
+app.get("/project/:id", authMiddleware, projectDetail);
+app.get("/project/:id/edit", authMiddleware, editProject);
+app.post(
+  "/project/:id/edit",
+  authMiddleware,
+  upload.single("upload_image"),
+  updateProject
+);
+app.post("/project/:id/delete", authMiddleware, deleteProject);
 
 app.get("/about", about);
 app.get("/contact", contact);
@@ -106,7 +131,7 @@ async function login(req, res) {
       password,
       isRegistered.rows[0].password
     );
-    
+
     if (!isMatch) {
       req.flash("message", "Password salah");
       return res.redirect("/login");
@@ -204,21 +229,19 @@ async function home(req, res) {
       duration: getDuration(project.start_date, project.end_date),
     }));
 
-    // Perbaikan: Gunakan return untuk menghentikan eksekusi
-    if (req.session.users) {
-      const dataUser = {
-        name: req.session.users.name,
-        email: req.session.users.email,
-        profile_img: req.session.users.profile_img || "default.png",
-      };
-      return res.render("home", {
-        projects,
-        dataUser,
-        success: req.flash("message"),
-        error: req.flash("success"),
-      }); // RETURN di sini
-    }
-    res.redirect("/login");
+    // Perbaikan: Gunakan return untuk menghentikan eksek
+    const dataUser = {
+      name: req.session.users.name,
+      email: req.session.users.email,
+      profile_img: req.session.users.profile_img || "default.png",
+    };
+
+    return res.render("home", {
+      projects,
+      dataUser,
+      success: req.flash("message"),
+      error: req.flash("success"),
+    }); // RETURN di sini
   } catch (err) {
     console.error(err);
     res.send("Gagal Melakukan load data");
