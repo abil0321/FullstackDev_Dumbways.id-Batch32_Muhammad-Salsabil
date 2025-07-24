@@ -2,7 +2,9 @@
 import express from "express"; //* yang sekarang digunakan, menggunakan js ES6
 import pool from "./src/database/db.js";
 import multer from "multer";
+import fs from "fs"; // fs untuk menghapus file gambar
 import path from "path";
+import { fileURLToPath } from "url";
 import bcrypt from "bcrypt";
 import session from "express-session";
 import flash from "express-flash";
@@ -10,6 +12,9 @@ import flash from "express-flash";
 const app = express();
 const port = 3000;
 const webAccess = `http://localhost:${port}`;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // TODO: Inisialisasi storage & upload SEBELUM route ========================
 const storage = multer.diskStorage({
@@ -20,7 +25,20 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
-const upload = multer({ storage: storage });
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = [".jpg", ".jpeg", ".png"];
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (allowedTypes.includes(ext)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Hanya file JPG, JPEG, atau PNG yang diizinkan"), false);
+    }
+  },
+});
 
 // TODO: Set view engine hbs di express js
 app.set("view engine", "hbs");
@@ -168,7 +186,12 @@ async function home(req, res) {
         name: req.session.users.name,
         email: req.session.users.email,
       };
-      return res.render("home", { projects, dataUser }); // RETURN di sini
+      return res.render("home", {
+        projects,
+        dataUser,
+        success: req.flash("message"),
+        error: req.flash("success"),
+      }); // RETURN di sini
     }
     res.redirect("/login");
   } catch (err) {
@@ -221,53 +244,120 @@ async function editProject(req, res) {
 async function updateProject(req, res) {
   const { id } = req.params;
   const { name, start_date, end_date, description } = req.body;
-  const nodejs = req.body.nodejs ? true : false;
-  const nextjs = req.body.nextjs ? true : false;
-  const reactjs = req.body.reactjs ? true : false;
-  const typescript = req.body.typescript ? true : false;
+  const technologies = {
+    nodejs: !!req.body.nodejs,
+    nextjs: !!req.body.nextjs,
+    reactjs: !!req.body.reactjs,
+    typescript: !!req.body.typescript,
+  };
 
   try {
-    let currentProject = await pool.query(
+    // Ambil data project saat ini
+    const currentProject = await pool.query(
       "SELECT * FROM projects WHERE id = $1",
       [id]
     );
-    let currentImage = currentProject.rows[0].upload_image;
 
-    const upload_image = req.file ? req.file.filename : currentImage;
+    if (currentProject.rows.length === 0) {
+      req.flash("error", "Project tidak ditemukan");
+      return res.redirect("/");
+    }
 
+    const currentImage = currentProject.rows[0].upload_image;
+    let upload_image = currentImage;
+    let oldImageToDelete = null;
+
+    // Cek apakah ada file baru yang di-upload
+    if (req.file) {
+      upload_image = req.file.filename;
+
+      // Tandai gambar lama untuk dihapus
+      if (currentImage) {
+        oldImageToDelete = path.join(__dirname, "src/assets/img", currentImage);
+      }
+    }
+
+    // Update database
     await pool.query(
       `UPDATE projects SET 
-                name = $1, start_date = $2, end_date = $3, description = $4, 
-                nodejs = $5, nextjs = $6, reactjs = $7, typescript = $8, upload_image = $9 
-            WHERE id = $10`,
+        name = $1, start_date = $2, end_date = $3, description = $4, 
+        nodejs = $5, nextjs = $6, reactjs = $7, typescript = $8, upload_image = $9 
+        WHERE id = $10`,
       [
         name,
         start_date,
         end_date,
         description,
-        nodejs,
-        nextjs,
-        reactjs,
-        typescript,
+        technologies.nodejs,
+        technologies.nextjs,
+        technologies.reactjs,
+        technologies.typescript,
         upload_image,
         id,
       ]
     );
+
+    // Hapus gambar lama jika ada gambar baru dan update berhasil
+    if (req.file && oldImageToDelete && fs.existsSync(oldImageToDelete)) {
+      fs.unlinkSync(oldImageToDelete);
+    }
+
+    req.flash("success", "Project berhasil diupdate!");
     res.redirect("/");
   } catch (err) {
     console.error(err);
-    res.send("Gagal mengupdate project");
+
+    // Hapus file baru jika upload gagal
+    if (req.file) {
+      const newImagePath = path.join(
+        __dirname,
+        "src/assets/img",
+        req.file.filename
+      );
+      if (fs.existsSync(newImagePath)) {
+        fs.unlinkSync(newImagePath);
+      }
+    }
+
+    req.flash("error", "Gagal mengupdate project");
+    res.redirect(`/project/${id}/edit`);
   }
 }
 
 async function deleteProject(req, res) {
   const { id } = req.params;
+
   try {
+    // Ambil data gambar sebelum menghapus
+    const result = await pool.query(
+      "SELECT upload_image FROM projects WHERE id = $1",
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      req.flash("error", "Project tidak ditemukan");
+      return res.redirect("/");
+    }
+
+    const imagePath = result.rows[0].upload_image;
+
+    // Hapus dari database
     await pool.query("DELETE FROM projects WHERE id = $1", [id]);
+
+    // Hapus file gambar jika ada
+    if (imagePath) {
+      const fullPath = path.join(__dirname, "src/assets/img", imagePath);
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+      }
+    }
+
+    req.flash("success", "Project berhasil dihapus!");
     res.redirect("/");
   } catch (err) {
     console.error(err);
-    res.send("Gagal menghapus project");
+    req.flash("error", "Gagal menghapus project");
+    res.redirect("/");
   }
 }
 
@@ -275,34 +365,55 @@ async function deleteProject(req, res) {
 
 async function store_project(req, res) {
   const { name, start_date, end_date, description } = req.body;
-  // Checkbox: jika tidak dicentang, value-nya undefined
-  const nodejs = req.body.nodejs ? true : false;
-  const nextjs = req.body.nextjs ? true : false;
-  const reactjs = req.body.reactjs ? true : false;
-  const typescript = req.body.typescript ? true : false;
-  const upload_image = req.file ? req.file.filename : null;
+  const technologies = {
+    nodejs: !!req.body.nodejs,
+    nextjs: !!req.body.nextjs,
+    reactjs: !!req.body.reactjs,
+    typescript: !!req.body.typescript,
+  };
 
   try {
+    let upload_image = null;
+    if (req.file) {
+      upload_image = req.file.filename;
+    }
+
     await pool.query(
-      `INSERT INTO projects 
-        (name, start_date, end_date, description, nodejs, nextjs, reactjs, typescript, upload_image)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+      `INSERT INTO projects (name, start_date, end_date, description, 
+        nodejs, nextjs, reactjs, typescript, upload_image) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
       [
         name,
         start_date,
         end_date,
         description,
-        nodejs,
-        nextjs,
-        reactjs,
-        typescript,
+        technologies.nodejs,
+        technologies.nextjs,
+        technologies.reactjs,
+        technologies.typescript,
         upload_image,
       ]
     );
+
+    req.flash("success", "Project berhasil ditambahkan!");
     res.redirect("/");
   } catch (err) {
     console.error(err);
-    res.send("Gagal menyimpan project");
+
+    // Hapus file jika upload gagal
+    if (req.file) {
+      const filePath = path.join(
+        __dirname,
+        "src/assets/img",
+        req.file.filename
+      );
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
+
+    req.flash("error", "Gagal menambahkan project");
+    res.redirect("/add-project");
   }
 }
 
@@ -356,6 +467,17 @@ app.get("/not-found", (req, res) => {
 });
 app.use((req, res) => {
   res.redirect("not-found");
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    req.flash("error", "Ukuran file terlalu besar (maks 2MB)");
+    return res.redirect("back");
+  } else if (err) {
+    req.flash("error", err.message);
+    return res.redirect("back");
+  }
+  next();
 });
 
 app.listen(port, () => {
