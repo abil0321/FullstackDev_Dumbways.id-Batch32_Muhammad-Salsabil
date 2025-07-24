@@ -59,10 +59,14 @@ app.get("/contact", contact);
 
 //* fungsi dari route '/' -------------fungsi home----------------
 async function loginWindow(req, res) {
-  res.render("login", { 
-    message: req.flash("message") ,
-    successMessage: req.flash("success")
-  });
+  if (!req.session.users) {
+    res.render("login", {
+      message: req.flash("message"),
+      successMessage: req.flash("success"),
+    });
+  } else {
+    res.redirect("/");
+  }
 }
 async function login(req, res) {
   let { email, password } = req.body;
@@ -90,9 +94,13 @@ async function login(req, res) {
   }
 }
 async function registerWindow(req, res) {
-  res.render("register", {
-    errorMessage: req.flash("message"),
-  });
+  if (!req.session.users) {
+    res.render("register", {
+      errorMessage: req.flash("message"),
+    });
+  } else {
+    res.redirect("/");
+  }
 }
 async function register(req, res) {
   const { name, email, password } = req.body;
