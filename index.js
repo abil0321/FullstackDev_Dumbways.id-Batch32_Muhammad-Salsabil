@@ -173,7 +173,7 @@ async function home(req, res) {
     res.redirect("/login");
   } catch (err) {
     console.error(err);
-    res.send("Gagal mengambil data");
+    res.send("Gagal Melakukan load data");
   }
 }
 
