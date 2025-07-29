@@ -81,7 +81,7 @@ app.post("/register", guestMiddleware, upload.single("upload_image"), register);
 
 app.get("/logout", logout);
 
-app.get("/", authMiddleware, home);
+app.get("/add_project", authMiddleware, home);
 app.post(
   "/project",
   authMiddleware,
@@ -97,6 +97,9 @@ app.post(
   updateProject
 );
 app.post("/project/:id/delete", authMiddleware, deleteProject);
+
+// TODO: Test stage 1 - Route My Portfolio ========================
+app.get("/", home_myportfolio);
 
 app.get("/about", about);
 app.get("/contact", contact);
@@ -141,7 +144,7 @@ async function login(req, res) {
       email: isRegistered.rows[0].email,
       profile_img: isRegistered.rows[0].profile_img,
     };
-    res.redirect("/");
+    res.redirect("/add_project");
   } catch (error) {
     console.error(error);
     res.send("Gagal login, silakan coba lagi.");
@@ -218,54 +221,6 @@ async function logout(req, res) {
   } catch (error) {
     console.error("Logout error:", error);
     res.status(500).send("Terjadi kesalahan saat logout");
-  }
-}
-
-async function home(req, res) {
-  try {
-    const result = await pool.query("SELECT * FROM projects ORDER BY id DESC");
-    const projects = result.rows.map((project) => ({
-      ...project,
-      duration: getDuration(project.start_date, project.end_date),
-    }));
-
-    // Perbaikan: Gunakan return untuk menghentikan eksek
-    const dataUser = {
-      name: req.session.users.name,
-      email: req.session.users.email,
-      profile_img: req.session.users.profile_img || "default.png",
-    };
-
-    return res.render("home", {
-      projects,
-      dataUser,
-      success: req.flash("message"),
-      error: req.flash("success"),
-    }); // RETURN di sini
-  } catch (err) {
-    console.error(err);
-    res.send("Gagal Melakukan load data");
-  }
-}
-
-async function projectDetail(req, res) {
-  const { id } = req.params;
-  try {
-    const result = await pool.query("SELECT * FROM projects WHERE id = $1", [
-      id,
-    ]);
-    if (result.rows.length === 0) {
-      return res.redirect("/");
-    }
-    const project = result.rows[0];
-    project.start_date_formatted = formatDate(project.start_date);
-    project.end_date_formatted = formatDate(project.end_date);
-    project.duration = getDuration(project.start_date, project.end_date);
-
-    res.render("project-detail", { project });
-  } catch (err) {
-    console.error(err);
-    res.send("Gagal mengambil detail project");
   }
 }
 
@@ -378,7 +333,7 @@ async function deleteProject(req, res) {
   try {
     // Ambil data gambar sebelum menghapus
     const result = await pool.query(
-      "SELECT upload_image FROM projects WHERE id = $1",
+      "SELECT upload_image FROM portfolio WHERE id = $1",
       [id]
     );
 
@@ -390,7 +345,7 @@ async function deleteProject(req, res) {
     const imagePath = result.rows[0].upload_image;
 
     // Hapus dari database
-    await pool.query("DELETE FROM projects WHERE id = $1", [id]);
+    await pool.query("DELETE FROM portfolio WHERE id = $1", [id]);
 
     // Hapus file gambar jika ada
     if (imagePath) {
@@ -401,67 +356,11 @@ async function deleteProject(req, res) {
     }
 
     req.flash("success", "Project berhasil dihapus!");
-    res.redirect("/");
+    res.redirect("/add_project");
   } catch (err) {
     console.error(err);
     req.flash("error", "Gagal menghapus project");
     res.redirect("/");
-  }
-}
-
-// TODO: add data project postgresql ========================
-
-async function store_project(req, res) {
-  const { name, start_date, end_date, description } = req.body;
-  const technologies = {
-    nodejs: !!req.body.nodejs,
-    nextjs: !!req.body.nextjs,
-    reactjs: !!req.body.reactjs,
-    typescript: !!req.body.typescript,
-  };
-  console.log(req.file);
-  try {
-    let upload_image = null;
-    if (req.file) {
-      upload_image = req.file.filename;
-    }
-
-    await pool.query(
-      `INSERT INTO projects (name, start_date, end_date, description, 
-        nodejs, nextjs, reactjs, typescript, upload_image) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-      [
-        name,
-        start_date,
-        end_date,
-        description,
-        technologies.nodejs,
-        technologies.nextjs,
-        technologies.reactjs,
-        technologies.typescript,
-        upload_image,
-      ]
-    );
-
-    req.flash("success", "Project berhasil ditambahkan!");
-    res.redirect("/");
-  } catch (err) {
-    console.error(err);
-
-    // Hapus file jika upload gagal
-    if (req.file) {
-      const filePath = path.join(
-        __dirname,
-        "src/assets/img",
-        req.file.filename
-      );
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-      }
-    }
-
-    req.flash("error", "Gagal menambahkan project");
-    res.redirect("/add-project");
   }
 }
 
@@ -498,6 +397,128 @@ function formatDateForInput(date) {
   const month = `0${d.getMonth() + 1}`.slice(-2);
   const day = `0${d.getDate()}`.slice(-2);
   return `${year}-${month}-${day}`;
+}
+
+// TODO: test stage 1 - membuat portfolio ========================
+async function home_myportfolio(req, res) {
+  try {
+    const result = await pool.query("SELECT * FROM portfolio ORDER BY id DESC");
+    const portfolios = result.rows.map((portfolio) => ({
+      ...portfolio,
+      duration: getDuration(portfolio.start_date, portfolio.end_date),
+    }));
+
+    return res.render("index", {
+      portfolios,
+    }); // RETURN di sini
+  } catch (err) {
+    console.error(err);
+    res.send("Gagal Melakukan load data");
+  }
+}
+async function store_project(req, res) {
+  const { name, start_date, end_date, description, url_github, url_demo } =
+    req.body;
+  const technologies = {
+    nodejs: !!req.body.nodejs,
+    nextjs: !!req.body.nextjs,
+    reactjs: !!req.body.reactjs,
+    typescript: !!req.body.typescript,
+    laravel: !!req.body.laravel,
+  };
+  // console.log(req.file);
+  try {
+    let upload_image = null;
+    if (req.file) {
+      upload_image = req.file.filename;
+    }
+
+    await pool.query(
+      `INSERT INTO portfolio (name, start_date, end_date, description, url_github, url_demo, 
+        nodejs, nextjs, reactjs, typescript, laravel, upload_image) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+      [
+        name,
+        start_date,
+        end_date,
+        description,
+        url_github,
+        url_demo,
+        technologies.nodejs,
+        technologies.nextjs,
+        technologies.reactjs,
+        technologies.typescript,
+        technologies.laravel,
+        upload_image,
+      ]
+    );
+
+    req.flash("success", "Project berhasil ditambahkan!");
+    res.redirect("/add_project");
+  } catch (err) {
+    console.error(err);
+
+    // Hapus file jika upload gagal
+    if (req.file) {
+      const filePath = path.join(
+        __dirname,
+        "src/assets/img",
+        req.file.filename
+      );
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
+
+    req.flash("error", "Gagal menambahkan project");
+    res.redirect("/add-project");
+  }
+}
+async function home(req, res) {
+  try {
+    const result = await pool.query("SELECT * FROM portfolio ORDER BY id DESC");
+    const portfolios = result.rows.map((portfolio) => ({
+      ...portfolio,
+      duration: getDuration(portfolio.start_date, portfolio.end_date),
+    }));
+
+    // Perbaikan: Gunakan return untuk menghentikan eksek
+    const dataUser = {
+      name: req.session.users.name,
+      email: req.session.users.email,
+      profile_img: req.session.users.profile_img || "default.png",
+    };
+
+    return res.render("home", {
+      portfolios,
+      dataUser,
+      success: req.flash("message"),
+      error: req.flash("success"),
+    }); // RETURN di sini
+  } catch (err) {
+    console.error(err);
+    res.send("Gagal Melakukan load data");
+  }
+}
+async function projectDetail(req, res) {
+  const { id } = req.params;
+  try {
+    const result = await pool.query("SELECT * FROM portfolio WHERE id = $1", [
+      id,
+    ]);
+    if (result.rows.length === 0) {
+      return res.redirect("/add_project");
+    }
+    const portfolio = result.rows[0];
+    portfolio.start_date_formatted = formatDate(portfolio.start_date);
+    portfolio.end_date_formatted = formatDate(portfolio.end_date);
+    portfolio.duration = getDuration(portfolio.start_date, portfolio.end_date);
+
+    res.render("project-detail", { portfolio });
+  } catch (err) {
+    console.error(err);
+    res.send("Gagal mengambil detail portfolio");
+  }
 }
 
 function about(req, res) {

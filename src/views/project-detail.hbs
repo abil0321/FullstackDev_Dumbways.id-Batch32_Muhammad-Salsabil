@@ -1,8 +1,9 @@
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{project.name}} - Project Detail</title>
+    <title>{{portfolio.name}} - Project Detail</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,6 +18,7 @@
     />
     <link rel="stylesheet" href="/assets/css/detail.css" />
   </head>
+
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
       <div class="container">
@@ -60,16 +62,15 @@
       </div>
     </nav>
 
-    <section class="container mt-5">
+    <section class="container mt-1">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="section-title text-center mb-5">{{project.name}}</h1>
-
+          <h1 class="section-title text-center pb-2 mb-5 border-bottom border-dark border-2">{{portfolio.name}}</h1>
           <div class="row align-items-start justify-content-center">
             <div class="col-12 col-md-7 image-container mb-4">
               <img
-                src="/assets/img/{{project.upload_image}}"
-                alt="{{project.name}}"
+                src="/assets/img/{{portfolio.upload_image}}"
+                alt="{{portfolio.name}}"
                 class="img-fluid rounded shadow"
               />
             </div>
@@ -78,27 +79,27 @@
                 <h3 class="info-label fs-4 mb-3">Duration</h3>
                 <div class="d-flex gap-2 align-items-center mb-2 fs-5">
                   <i class="fa-regular fa-calendar-days"></i>
-                  <span class="fs-6">{{project.start_date_formatted}}
+                  <span class="fs-6">{{portfolio.start_date_formatted}}
                     -
-                    {{project.end_date_formatted}}</span>
+                    {{portfolio.end_date_formatted}}</span>
                 </div>
                 <div class="d-flex gap-2 align-items-center mt-2 fs-5">
                   <i class="fa-regular fa-clock"></i>
-                  <span class="fs-6">{{project.duration}}</span>
+                  <span class="fs-6">{{portfolio.duration}}</span>
                 </div>
               </div>
 
-              <div class="tech-icons d-flex flex-column">
+              <div class="tech-icons d-flex flex-column mb-4">
                 <h3 class="info-label fs-4 mb-3">Technologies</h3>
                 <div class="row">
                   <div class="col-6">
-                    {{#if project.nodejs}}
+                    {{#if portfolio.nodejs}}
                       <div class="d-flex align-items-center gap-2 mb-2">
                         <i class="fab fa-node-js fs-4"></i>
                         <span>Node Js</span>
                       </div>
                     {{/if}}
-                    {{#if project.nextjs}}
+                    {{#if portfolio.nextjs}}
                       <div class="d-flex align-items-center gap-2 mb-2">
                         <i class="fab fa-react fs-4"></i>
                         <span>Next Js</span>
@@ -106,13 +107,13 @@
                     {{/if}}
                   </div>
                   <div class="col-6">
-                    {{#if project.reactjs}}
+                    {{#if portfolio.reactjs}}
                       <div class="d-flex align-items-center gap-2 mb-2">
                         <i class="fab fa-react fs-4"></i>
                         <span>React Js</span>
                       </div>
                     {{/if}}
-                    {{#if project.typescript}}
+                    {{#if portfolio.typescript}}
                       <div class="d-flex align-items-center gap-2 mb-2">
                         <i class="fab fa-js-square fs-4"></i>
                         <span>TypeScript</span>
@@ -121,18 +122,32 @@
                   </div>
                 </div>
               </div>
+
+              <div class="duration-icons d-flex flex-column">
+                <h3 class="info-label fs-4 mb-3">Demo and Source-Code</h3>
+                <div class="d-flex gap-2 align-items-center mb-2 fs-5">
+                  <i class="fa-solid fa-link"></i>
+                  <a href="{{portfolio.url_demo}}" class="fs-6  btn btn-info" target="_blank">{{portfolio.url_demo}}</a>
+                </div>
+                <div class="d-flex gap-2 align-items-center mt-2 fs-5">
+                  <i class="fa-brands fa-github"></i>
+                  <a href="{{portfolio.url_github}}" class="fs-6 btn btn-info" target="_blank">{{portfolio.url_github}}</a>
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-12 col-md-10 content-text">
-              <p class="text-dark">{{project.description}}</p>
+              <h3 class="info-label fs-4 mb-3">Description</h3>
+              <hr>
+              <p class="text-dark">{{portfolio.description}}</p>
             </div>
           </div>
 
-          <div class="row mt-4">
+          <div class="row my-4">
             <div class="col-md-12 text-center">
-              <a href="/" class="btn btn-custom-primary">
+              <a href="/add_project" class="btn btn-custom-primary">
                 Back to Project List
               </a>
             </div>
@@ -145,4 +160,5 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
     ></script>
   </body>
+
 </html>
