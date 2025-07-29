@@ -45,7 +45,7 @@ app.set("view engine", "hbs");
 app.set("views", "src/views");
 
 // TODO: use static forlder, urlendcoded, and flash
-app.use("/assets", express.static("src/assets"));
+app.use("/assets", express.static(path.join(__dirname, 'src/assets')));
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
