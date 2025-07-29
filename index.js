@@ -402,7 +402,7 @@ function formatDateForInput(date) {
 // TODO: test stage 1 - membuat portfolio ========================
 async function home_myportfolio(req, res) {
   try {
-    const result = await pool.query("SELECT * FROM portfolio ORDER BY id DESC");
+    const result = await pool.query("SELECT * FROM portfolio ORDER BY id DESC LIMIT 3");
     const portfolios = result.rows.map((portfolio) => ({
       ...portfolio,
       duration: getDuration(portfolio.start_date, portfolio.end_date),
