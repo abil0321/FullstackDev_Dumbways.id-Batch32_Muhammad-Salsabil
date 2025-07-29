@@ -133,11 +133,11 @@ blockquote footer {
   border-top: 1px solid #444654;
   padding: 1rem 0;
   font-size: 0.8rem;
-  color: #828282;
+  color: #a46de0;
   font-family: monospace;
 }
 .footer .media-icons a {
-  color: #828282;
+  color: #a46de0;;
   margin-right: 1rem;
   font-size: 1.25rem;
   transition: color 0.3s ease;

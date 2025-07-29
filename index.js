@@ -100,7 +100,7 @@ app.post("/project/:id/delete", authMiddleware, deleteProject);
 
 // TODO: Test stage 1 - Route My Portfolio ========================
 app.get("/", home_myportfolio);
-
+app.get("/projects", projects);
 app.get("/about", about);
 app.get("/contact", contact);
 
@@ -409,6 +409,23 @@ async function home_myportfolio(req, res) {
     }));
 
     return res.render("index", {
+      portfolios,
+    }); // RETURN di sini
+  } catch (err) {
+    console.error(err);
+    res.send("Gagal Melakukan load data");
+  }
+}
+
+async function projects(req, res) {
+  try {
+    const result = await pool.query("SELECT * FROM portfolio ORDER BY id DESC");
+    const portfolios = result.rows.map((portfolio) => ({
+      ...portfolio,
+      duration: getDuration(portfolio.start_date, portfolio.end_date),
+    }));
+
+    return res.render("project", {
       portfolios,
     }); // RETURN di sini
   } catch (err) {
