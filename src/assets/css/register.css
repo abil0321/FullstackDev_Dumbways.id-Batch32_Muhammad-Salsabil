@@ -1,0 +1,78 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  background: #f8f9fa;
+}
+.left-panel {
+  background: url("https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/49bcea50-8715-41ee-8068-25afac5cabed.png")
+    center/cover no-repeat; /* The
+      gradient is a smooth blend of pastel yellow, aquamarine, and violet-pink
+      */
+  height: 100vh;
+}
+.right-panel {
+  background-color: rgb(240, 240, 240);
+  height: 100vh;
+  padding: 3rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  box-shadow: -4px 2px 15px rgba(0, 0, 0, 0.05);
+}
+.form-control:focus {
+  box-shadow: none !important;
+  border-color: #6f42c1 !important; /* Bootstrap purple shade */
+} /*
+      Password visibility toggle */
+.password-wrapper {
+  position: relative;
+}
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: #6c757d;
+  cursor: pointer;
+  user-select: none;
+} /* reCaptcha container styling */
+.captcha-box {
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem; /* 6px
+      like bootstrap input */
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  background: #fafafa;
+} /* Disabled button style */
+.btn-disabled {
+  background-color: #bbb !important;
+  border-color: #bbb !important;
+  cursor: not-allowed !important;
+} /* Gray circle (top-right) */
+.gray-circle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 25px;
+  height: 25px;
+  background-color: #bcbcbc;
+  border-radius: 50%;
+} /* Smaller
+      link at bottom */
+.small-login-link {
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}

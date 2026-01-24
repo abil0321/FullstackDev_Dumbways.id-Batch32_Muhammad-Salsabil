@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio Abil - Projects</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/project.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-1">
+        <!-- Left side with vertical line and social icons -->
+        <aside class="col-12 d-none d-lg-flex flex-column align-items-center align-content-center">
+          <div class="vertical-line"></div>
+          <div class="left-social-links">
+            <a class="" href="https://github.com/abil0321" title="GitHub" aria-label="GitHub Profile"><i
+                class="bi bi-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/salsabil-muhammad-244b3a221/" title="Linkedin"
+              aria-label="Linkedin Profile"><i class="bi bi-linkedin"></i>
+            </a>
+            <a href="mailto:salsabilmuhammad45@gmail.com" title="Mail Me!" aria-label="Gmail Contact"><i
+                class="bi bi-envelope-fill"></i></a>
+            <a href="https://www.figma.com/@MuhSalsabil" title="Figma" aria-label="Figma Profile"><i
+                class="bi bi-pencil-square"></i></a>
+          </div>
+        </aside>
+      </div>
+      <div class="col-md-10">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #262833">
+          <div class="container mx-3 mx-md-auto">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+              <i class="bi bi-code-slash fs-1 me-2 text-purple"></i>
+              <span class="fw-bold fs-1">Abil</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                  <a class="nav-link fs-5" href="/">#home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active fs-5" href="/projects">#project</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fs-5" href="/about">#about-me</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fs-5" href="/contact">#contacts</a>
+                </li>
+                <!-- <li class="nav-item dropdown ms-3">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                EN
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#">EN</a></li>
+                <li><a class="dropdown-item" href="#">ID</a></li>
+                <li><a class="dropdown-item" href="#">FR</a></li>
+              </ul>
+            </li> -->
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Main Content Container -->
+        <main class="container my-4">
+          <!-- Title & Subtitle -->
+          <div class="row align-items-center mb-5" id="home">
+            <section class="col-lg-12 col-md-12">
+              <h1 class="fw-bold"><span class="text-purple">/</span>project</h1>
+              <p class="fs-5 ms-1">List Of My Projects</p>
+            </section>
+          </div>
+          <!-- Complete Apps Projects -->
+          <section id="complete-apps" class="mb-5">
+            <h3 class="text-purple mb-3">#complete-apps</h3>
+            <div class="row g-4">
+              <!-- Project 1 -->
+              {{#each portfolios}}
+              <div class="col-md-4">
+                <div class="project-card p-3 h-100 d-flex flex-column justify-content-between">
+                  <img src="/assets/img/{{this.upload_image}}" alt="{{this.name}}" class="placeholder-img mb-3"
+                    onerror="this.onerror=null;this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5fb493cc-8faa-4a94-85a4-ea55c3acc7c4.png';" />
+                  <small class="text-muted-custom d-flex align-items-center">
+                    {{#if this.nodejs}}NodeJs {{/if}}
+                    {{#if this.nextjs}}NextJs </i>{{/if}}
+                    {{#if this.reactjs}}ReactJs {{/if}}
+                    {{#if this.typescript}}TypeScript {{/if}}
+                    {{#if this.laravel}}Laravel {{/if}}
+                  </small>
+                  <h5 class="fw-bold mt-2">{{this.name}}</h5>
+                  <p class="mb-3" style="font-size: 0.85rem">
+                    {{this.description}}
+                  </p>
+                  <div class="d-flex gap-2">
+                    {{#if this.url_demo}}
+                    <a href="{{this.url_demo}}" class="project-btn" title="Live Demo" target="_blank"><i
+                        class="bi bi-box-arrow-up-right"></i>
+                      Live</a>
+                    {{/if}}
+
+                    {{#if this.url_github}}
+                    <a href="{{this.url_github}}" class="project-btn" title="Github" target="_blank"><i
+                        class="bi bi-folder2-open"></i> Github </a>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+
+            </div>
+          </section>
+
+          <!-- Small Projects -->
+          <section id="small-projects">
+            <h3 class="text-purple mb-3">#small-projects</h3>
+            <div class="row g-3">
+              <!-- repeat similar project cards with smaller descriptions -->
+              <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="project-card">
+                  <div>
+                    <div class="project-label mb-2">Discord.js TS JS</div>
+                    <h5><strong>Bot boilerplate</strong></h5>
+                    <p>
+                      Start creating scalable discord.js bot with typescript in
+                      seconds
+                    </p>
+                  </div>
+                  <div>
+                    <a href="#" class="project-btn btn-outline-purple" target="_blank" rel="noopener noreferrer">Github
+                      &#x2194;</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="project-card">
+                  <div>
+                    <div class="project-label mb-2">VUE CSS JS</div>
+                    <h5><strong>My blog</strong></h5>
+                    <p>Front-end of my future blog website written in vue</p>
+                  </div>
+                  <div>
+                    <a href="#" class="project-btn btn-outline-purple" target="_blank" rel="noopener noreferrer">Github
+                      &#x2194;</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="project-card">
+                  <div>
+                    <div class="project-label mb-2">Figma</div>
+                    <h5><strong>Chess pro</strong></h5>
+                    <p>
+                      Figma landing page about service for viewing chess
+                      tournaments
+                    </p>
+                  </div>
+                  <div>
+                    <a href="#" class="project-btn btn-outline-purple" target="_blank" rel="noopener noreferrer">Figma
+                      &#x2194;</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="project-card">
+                  <div>
+                    <div class="project-label mb-2">Figma</div>
+                    <h5><strong>Chess pro</strong></h5>
+                    <p>
+                      Figma landing page about service for viewing chess
+                      tournaments
+                    </p>
+                  </div>
+                  <div>
+                    <a href="#" class="project-btn btn-outline-purple" target="_blank" rel="noopener noreferrer">Figma
+                      &#x2194;</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="project-card">
+                  <div>
+                    <div class="project-label mb-2">Figma</div>
+                    <h5><strong>Chess pro</strong></h5>
+                    <p>
+                      Figma landing page about service for viewing chess
+                      tournaments
+                    </p>
+                  </div>
+                  <div>
+                    <a href="#" class="project-btn btn-outline-purple" target="_blank" rel="noopener noreferrer">Figma
+                      &#x2194;</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional small projects can similarly follow -->
+            </div>
+          </section>
+
+          <!-- Quote Example -->
+          <section class="my-5">
+            <blockquote class="quote">
+              The best way to predict the future is to invent it.
+              <footer>Alan Kay</footer>
+            </blockquote>
+          </section>
+        </main>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center text-md-start px-4" style="background-color: #262833">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="mb-2 mb-md-0" style="font-family: monospace; color: #828282">
+          <div>
+            <i class="bi bi-code-slash me-1"></i>Abil <<a href="mailto:salsabilmuhammad45@gmail.com"
+              class="text-muted-custom">salsabilmuhammad45@gmail.com</a>>
+          </div>
+          <small>full-stack web developer</small>
+        </div>
+        <div class="media-icons">
+          <a href="https://github.com/abil0321" aria-label="GitHub" title="GitHub"><i class="bi bi-github"></i></a>
+          <a href="https://www.figma.com/@MuhSalsabil" aria-label="Figma" title="Figma"><i
+              class="bi bi-pencil-square"></i></a>
+          <a href="https://www.linkedin.com/in/salsabil-muhammad-244b3a221/" aria-label="Linkedin"
+            title="Linkedin Profile"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="text-center text-muted-custom mt-3" style="font-family: monospace; font-size: 0.75rem">
+        © Copyright 2025. Made by Abil
+      </div>
+    </footer>
+  </div>
+
+  <!-- Bootstrap 5 JS bundle (for dropdown) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

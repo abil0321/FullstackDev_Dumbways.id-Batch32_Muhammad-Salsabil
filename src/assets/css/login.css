@@ -1,0 +1,94 @@
+/* Background covering full viewport with dark overlay for contrast */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.bg-cover {
+  position: fixed;
+  inset: 0;
+  background: url("https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/49bcea50-8715-41ee-8068-25afac5cabed.png")
+    center/cover no-repeat;
+  filter: brightness(0.5);
+  z-index: -1;
+} /* Center
+      the card vertically and horizontally */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+} /* Card styling consistent with the screenshot */
+.login-card {
+  border-radius: 15px;
+  max-width: 380px;
+  width: 100%;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 0 15px rgb(0 0 0 / 0.15);
+  background: #fff;
+  position: relative;
+} /* Close button styling top right */
+.btn-close-custom {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: #555;
+  font-size: 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.btn-close-custom:hover {
+  color: #000;
+} /* Footer text smaller
+      and lighter */
+.login-footer-text {
+  font-size: 0.75rem;
+  color: #666;
+} /*
+      Dark text for labels */
+label {
+  font-weight: 500;
+  color: #333;
+} /*
+      Password input wrapper for toggle */
+.password-wrapper {
+  position: relative;
+} /* Show/Hide password button */
+.toggle-password-btn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+}
+.toggle-password-btn:focus {
+  outline: none;
+  text-decoration: underline;
+} /* Checkbox and right aligned link in a flex
+      container */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+} /* Link style for sign-up */
+.signup-link {
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0d6efd;
+}
+.signup-link:hover {
+  color: #0a58ca;
+  text-decoration: none;
+}

@@ -1,0 +1,51 @@
+.section-funfacts h3 {
+  color: #854aad;
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.fun-facts-container > span {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #4a4e59;
+  padding: 0.3rem 0.75rem;
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.85rem;
+  margin: 0.25rem 0.5rem 0.5rem 0;
+  white-space: nowrap;
+  user-select: none;
+}
+/* Decorative squares and dots (replicating the image style) */
+.decorative-dots {
+  width: 140px;
+  height: 140px;
+  background-image: radial-gradient(#555 2px, transparent 2px);
+  background-size: 8px 8px;
+  opacity: 0.3;
+  margin-top: 1rem;
+}
+.decorative-squares {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  opacity: 0.3;
+  margin-left: 2rem;
+}
+.decorative-squares::before,
+.decorative-squares::after {
+  content: "";
+  position: absolute;
+  border: 2px solid #6c4a8f;
+  width: 146px;
+  height: 146px;
+  top: 12px;
+  left: 12px;
+  box-sizing: border-box;
+}
+.decorative-squares::after {
+  width: 124px;
+  height: 124px;
+  left: 18px;
+  top: 6px;
+  border-color: #8a61c9;
+}
